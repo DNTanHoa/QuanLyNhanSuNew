@@ -132,6 +132,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         public XPCollection<LanTangCa> lanTangCas { get { return GetCollection<LanTangCa>("lanTangCas"); } }
         [Association(@"NhanVien-LanBoSungGio")]
         [XafDisplayName("Lần Bố Sung Giờ")]
-        public XPCollection<LanBoSungGio> lanBoSungGios { get { return GetCollection<LanBoSungGio>("lanBoSungGios"); } } 
+        public XPCollection<LanBoSungGio> lanBoSungGios { get { return GetCollection<LanBoSungGio>("lanBoSungGios"); } }
+        [Association(@"NhanVien-HopDongLaoDong")]
+        [XafDisplayName("Hợp Đồng Lao Động")]
+        public XPCollection<HopDongLaoDong> hopDongLaoDongs { get { return GetCollection<HopDongLaoDong>("hopDongLaoDongs"); } }
     }
 }

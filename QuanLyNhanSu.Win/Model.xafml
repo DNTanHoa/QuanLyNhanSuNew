@@ -49,6 +49,12 @@
           <Item Id="DanhSachCaLamViec" Index="3" Caption="Danh Sách Ca Làm Việc" ImageName="ModelEditor_Action_Schema" ViewId="CaLamViec_ListView" IsNewNode="True" />
         </Items>
       </Item>
+      <Item Id="QuanLyHoSo" Caption="Quản Lý Hồ Sơ" ImageName="BO_Report" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="CacLoaiHopDong" Caption="Các Loại Hợp Đồng" ImageName="BO_KPI_Scorecard" ViewId="LoaiHopDong_ListView" IsNewNode="True" />
+          <Item Id="HopDongNhanVien" Caption="Hợp Đồng Nhân Viên" ImageName="BO_WorkflowDefinition" ViewId="HopDongLaoDong_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
     </Items>
   </NavigationItems>
   <Options UIType="TabbedMDI" FormStyle="Ribbon" ShowTabImage="False">
@@ -97,6 +103,37 @@
         <ColumnInfo Id="Id" Removed="True" />
       </Columns>
     </ListView>
+    <DetailView Id="HopDongLaoDong_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HopDongLaoDong" Caption="Hợp Đồng Lao Động" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="HopDongLaoDong_col1" RelativeSize="100">
+                <LayoutItem Id="tenNhanVien" RelativeSize="5.4145516074450084" Index="0" />
+                <LayoutItem Id="loaiHopDong" RelativeSize="4.0609137055837561" Index="1" />
+                <LayoutItem Id="ngayBatDau" RelativeSize="4.0609137055837561" Index="2" />
+                <LayoutItem Id="ngayKetThuc" ViewItem="ngayKetThuc" Index="3" RelativeSize="4.0609137055837561" IsNewNode="True" />
+                <LayoutItem Id="mucLuong" ViewItem="mucLuong" Index="4" RelativeSize="4.0609137055837561" IsNewNode="True" />
+                <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="5" RelativeSize="78.341793570219963" IsNewNode="True" />
+                <LayoutItem Id="Id" RelativeSize="4.5197740112994351" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HopDongLaoDong_col2" RelativeSize="50" Caption="HopDongLaoDong_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="ghiChu" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="mucLuong" RelativeSize="5.4145516074450084" Index="0" Removed="True" />
+                <LayoutItem Id="ngayKetThuc" RelativeSize="4.5197740112994351" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HopDongLaoDong_ListView">
+      <Columns>
+        <ColumnInfo Id="ghiChu" Removed="True" />
+        <ColumnInfo Id="Id" Removed="True" />
+        <ColumnInfo Id="mucLuong" Removed="True" />
+      </Columns>
+    </ListView>
     <DetailView Id="NhanVien_DetailView" ImageName="BO_Customer" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -143,6 +180,7 @@
             <LayoutGroup Id="lanNghiPheps" ImageName="BO_Resume" />
             <LayoutGroup Id="lanTangCas" ImageName="BO_Opportunity" />
             <LayoutGroup Id="lanBoSungGios" ImageName="BO_Appearance" />
+            <LayoutGroup Id="hopDongLaoDongs" ImageName="BO_KPI_Scorecard" />
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
