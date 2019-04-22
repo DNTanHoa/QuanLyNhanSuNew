@@ -26,6 +26,13 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fId; }
             set { SetPropertyValue("Id", ref fId, value); }
         }
+        string fSoHopDongLaoDong;
+        [XafDisplayName("Số Hợp Đồng Lao Động")]
+        public string soHopDongLaoDong
+        {
+            get { return fSoHopDongLaoDong; }
+            set { SetPropertyValue("soHopDongLaoDong", ref fSoHopDongLaoDong, value); }
+        }
         NhanVien fTenNhanVien;
         [XafDisplayName("Tên Nhân Viên")]
         [Association(@"NhanVien-HopDongLaoDong")]
@@ -40,6 +47,15 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get { return fLoaiHopDong; }
             set { SetPropertyValue("loaiHopDong", ref fLoaiHopDong, value); }
+        }
+        DateTime fNgayKiHopDong;
+        [XafDisplayName("Ngày Kí Hợp Đồng")]
+        [ModelDefault("DisplayFormat", "{0:dd/MM/yyyy}")]
+        [ModelDefault("EditMask", "dd/MM/yyyy")]
+        public DateTime ngayKiHopDong
+        {
+            get { return fNgayKiHopDong; }
+            set { SetPropertyValue("ngayKiHopDong", ref fNgayKiHopDong, value); }
         }
         DateTime fNgayBatDau;
         [XafDisplayName("Ngày Bắt Đầu")]
