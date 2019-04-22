@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Logo="ExpressAppLogo" ProtectedContentText="Nội Dung Bị Ẩn Do Phân Quyền" Title="Quản Lý Nhân Sự" Company="Công Ty TNHH Cơ Khi Duy Khanh" Copyright="Duy Anh System Management Solutions Co,Ltd">
+  <ActionDesign>
+    <Actions>
+      <Action Id="About Info" Caption="Về Chúng Tôi" />
+      <Action Id="Cancel" Caption="Thoát" />
+      <Action Id="CancelAction" Caption="Thoát" />
+      <Action Id="Close" Caption="Đóng" />
+      <Action Id="CopyCellValue" Caption="Sao Chép Nội Dung Ô" Shortcut="CtrlC" />
+      <Action Id="ChangePasswordByUser" Caption="Thay Đổi Mật Khẩu Cá Nhân" />
+      <Action Id="ChooseSkin" Caption="Thay Đổi Giao Diện" />
+      <Action Id="Delete" Caption="Xóa" ConfirmationMessage="Bạn Có Chắc Chắn Muốn Xóa" />
+      <Action Id="Delete Item" Caption="Xóa Nội Dung" ConfirmationMessage="Bạn Có Chắc Muốn Xóa?" />
+      <Action Id="DeleteDashboard" Caption="Xóa Bảng Thống Kê" />
+      <Action Id="DialogCancel" Caption="Thoát" />
+      <Action Id="DialogClose" Caption="Đóng" />
+      <Action Id="DialogOK" Caption="Xác Nhận" />
+      <Action Id="EditModel" Caption="Thay Đổi Giao Diện" />
+      <Action Id="Exit" Caption="Thoát" />
+      <Action Id="Export" Caption="Xuất Thành" />
+      <Action Id="ExportAnalysis" Caption="Xuất Báo Cáo Thành" />
+      <Action Id="FullTextSearch" Caption="Tìm Kiếm" NullValuePrompt="Nhập thông tin...." ShortCaption="Tìm Kiếm" ToolTip="Tìm Kiếm Đối Tượng" />
+      <Action Id="Link" Caption="Nội Dung Liên Kết" />
+      <Action Id="Logoff" Caption="Đăng Xuất" />
+      <Action Id="Logon" Caption="Đăng Nhập" />
+      <Action Id="MyDetails" Caption="Thông Tin Cá Nhân" />
+      <Action Id="NavigateBack" Caption="Quay Lại" />
+      <Action Id="NavigateForward" Caption="Tới" />
+      <Action Id="New" Caption="Thêm" ImageName="Actions_AddCircled" />
+      <Action Id="Save" Caption="Lưu" />
+      <Action Id="SaveAndClose" Caption="Lưu Và Đóng" />
+      <Action Id="SaveAndNew" Caption="Lưu Và Thêm Mới" />
+      <Action Id="SetFilter" Caption="Bộ Lọc" />
+      <Action Id="Unlink" Caption="Loại Bỏ Liên Kết" />
+    </Actions>
+  </ActionDesign>
+  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List">
+    <Items>
+      <Item Id="Default" Caption="Thông Tin Chung" ImageName="Actions_Home" Index="0">
+        <Items>
+          <Item Id="MyDetails" Caption="Thông Tin Đăng Nhập" />
+        </Items>
+      </Item>
+      <Item Id="QuanLyNhanVien" Index="2" Caption="Quản Lý Nhân Viên" ImageName="BO_Customer" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="DanhSachNhanVien" Caption="Danh Sách Nhân Viên" ImageName="BO_Contact" Index="0" ViewId="NhanVien_ListView" IsNewNode="True" />
+          <Item Id="DanhSachBoPhan" Index="1" Caption="Danh Sách Bộ Phận" ImageName="BO_WorkflowDefinition" ViewId="BoPhan_ListView" IsNewNode="True" />
+          <Item Id="DanhSachChucVu" Index="2" Caption="Danh Sách Chức Vụ" ImageName="BO_Position" ViewId="ChucVu_ListView" IsNewNode="True" />
+          <Item Id="DanhSachCaLamViec" Index="3" Caption="Danh Sách Ca Làm Việc" ImageName="ModelEditor_Action_Schema" ViewId="CaLamViec_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options UIType="TabbedMDI" FormStyle="Ribbon" ShowTabImage="False">
+    <LayoutManagerOptions EnableLayoutGroupImages="False" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="18.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="18.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="18.2.6.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="BoPhan_DetailView" ImageName="BO_WorkflowDefinition" EnableLayoutGroupImages="True">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="18.024263431542462" ImageName="BO_WorkflowDefinition">
+            <LayoutGroup Id="BoPhan" Caption="Thông Tin Bộ Phận" RelativeSize="100" ImageName="BO_WorkflowDefinition">
+              <LayoutGroup Id="BoPhan_col1" RelativeSize="50">
+                <LayoutItem Id="tenBoPhan" RelativeSize="50" Index="0" />
+                <LayoutItem Id="maBoPhan" RelativeSize="50" Index="1" />
+                <LayoutItem Id="Id" RelativeSize="36.363636363636367" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="BoPhan_col2" RelativeSize="50">
+                <LayoutItem Id="truongBoPhan" RelativeSize="50" />
+                <LayoutItem Id="ghiChu" RelativeSize="50" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="NhanViens_Group" TextAlignMode="AlignWithChildren" Direction="Vertical" RelativeSize="81.975736568457535" ImageName="BO_Department">
+            <LayoutItem Id="NhanViens" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="BoPhan_ListView" ImageName="BO_WorkflowDefinition">
+      <Columns>
+        <ColumnInfo Id="ghiChu" Removed="True" />
+        <ColumnInfo Id="Id" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="BoPhan_NhanViens_ListView">
+      <Columns>
+        <ColumnInfo Id="hoTen" Width="110" />
+        <ColumnInfo Id="boPhan" Removed="True" />
+        <ColumnInfo Id="caLamViec" Removed="True" />
+        <ColumnInfo Id="cmnd" Removed="True" />
+        <ColumnInfo Id="Id" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="NhanVien_DetailView" ImageName="BO_Customer" EnableLayoutGroupImages="True">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="BO_Contact" TextAlignMode="UseParentOptions">
+            <LayoutGroup Id="NhanVien" Caption="Thông Tin Nhân Viên" RelativeSize="100" Direction="Vertical" ImageName="BO_Person">
+              <LayoutGroup Id="NhanVien_col1" RelativeSize="100" Caption="NhanVien_col1" Direction="Horizontal" ImageName="BO_Person">
+                <LayoutGroup Id="Auto065f830b-ff5c-412e-99f2-805a90fb3af3" ShowCaption="False" Caption="" Index="0" RelativeSize="57.991803278688522" ImageName="BO_Person" IsNewNode="True">
+                  <LayoutItem Id="Id" ViewItem="Id" Index="0" RelativeSize="5.9259259259259256" IsNewNode="True" />
+                  <LayoutItem Id="hoTen" ViewItem="hoTen" Index="1" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="maNhanVien" ViewItem="maNhanVien" Index="2" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="dienThoaiLienLac" ViewItem="dienThoaiLienLac" Index="3" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="email" ViewItem="email" Index="4" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="chucVuNhanVien" ViewItem="chucVuNhanVien" Index="5" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="boPhan" ViewItem="boPhan" Index="6" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="7" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="caLamViec" ViewItem="caLamViec" Index="8" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="cmnd" ViewItem="cmnd" Index="9" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="ngayNghiViec" ViewItem="ngayNghiViec" Index="10" RelativeSize="4.4444444444444446" IsNewNode="True" />
+                  <LayoutItem Id="daNghiViec" ViewItem="daNghiViec" Index="11" RelativeSize="49.629629629629626" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Id" ViewItem="Id" Index="0" RelativeSize="5.9259259259259256" Removed="True" />
+                <LayoutItem Id="hoTen" ViewItem="hoTen" Index="1" RelativeSize="4.4444444444444446" Removed="True" />
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="42.008196721311478" Caption="Hình Ảnh Nhân Viên" TextAlignMode="AlignWithChildren" ImageName="BO_Person" IsNewNode="True">
+                  <LayoutItem Id="HinhAnh" ViewItem="HinhAnh" CaptionLocation="Top" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="maNhanVien" ViewItem="maNhanVien" Index="2" RelativeSize="4.4444444444444446" Removed="True" />
+                <LayoutItem Id="dienThoaiLienLac" ViewItem="dienThoaiLienLac" Index="3" RelativeSize="4.4444444444444446" Removed="True" />
+                <LayoutItem Id="email" ViewItem="email" Index="4" RelativeSize="4.4444444444444446" Removed="True" />
+                <LayoutItem Id="cmnd" ViewItem="cmnd" Index="9" RelativeSize="4.4444444444444446" Removed="True" />
+                <LayoutItem Id="daNghiViec" ViewItem="daNghiViec" Index="11" RelativeSize="3.8888888888888888" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="NhanVien_col2" RelativeSize="50" Caption="NhanVien_col2" TextAlignMode="UseParentOptions" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="boPhan" RelativeSize="5.9259259259259256" Index="0" Removed="True" />
+                <LayoutItem Id="HinhAnh" RelativeSize="100" Index="0" ShowCaption="False" Removed="True" />
+                <LayoutItem Id="caLamViec" RelativeSize="4.4444444444444446" Index="1" Removed="True" />
+                <LayoutItem Id="chucVuNhanVien" RelativeSize="4.4444444444444446" Index="1" Removed="True" />
+                <LayoutItem Id="ghiChu" RelativeSize="5.9259259259259256" Index="1" Removed="True" />
+                <LayoutItem Id="ngayNghiViec" RelativeSize="4.5197740112994351" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="thoiGianChamCongs" ImageName="Security_Fingerprint" />
+            <LayoutGroup Id="lanNghiPheps" ImageName="BO_Resume" />
+            <LayoutGroup Id="lanTangCas" ImageName="BO_Opportunity" />
+            <LayoutGroup Id="lanBoSungGios" ImageName="BO_Appearance" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="NhanVien_ListView" ImageName="BO_Contact" MasterDetailMode="ListViewAndDetailView">
+      <Columns>
+        <ColumnInfo Id="boPhan" Removed="True" />
+        <ColumnInfo Id="cmnd" Removed="True" />
+        <ColumnInfo Id="daNghiViec" Removed="True" />
+        <ColumnInfo Id="ghiChu" Removed="True" />
+        <ColumnInfo Id="HinhAnh" Removed="True" />
+        <ColumnInfo Id="Id" Removed="True" />
+        <ColumnInfo Id="ngayNghiViec" Removed="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
