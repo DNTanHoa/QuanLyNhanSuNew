@@ -8,6 +8,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [Persistent(@"CaLamViec")]
     [DefaultProperty("tenCaLamviec")]
+    [XafDisplayName("Ca Làm Việc")]
     public class CaLamViec : XPLiteObject
     {
         public CaLamViec(Session session) : base(session) { }

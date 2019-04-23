@@ -81,6 +81,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
       <Private>False</Private>
@@ -96,7 +97,6 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\BoPhan.cs" />
     <Compile Include="BusinessObjects\CaLamViec.cs" />
-    <Compile Include="BusinessObjects\CheckInOut.cs" />
     <Compile Include="BusinessObjects\ChucVu.cs" />
     <Compile Include="BusinessObjects\EmployeeRole.cs" />
     <Compile Include="BusinessObjects\HopDongLaoDong.cs" />
@@ -123,6 +123,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
