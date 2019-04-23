@@ -49,6 +49,11 @@
           <Item Id="DanhSachCaLamViec" Index="3" Caption="Danh Sách Ca Làm Việc" ImageName="ModelEditor_Action_Schema" ViewId="CaLamViec_ListView" IsNewNode="True" />
         </Items>
       </Item>
+      <Item Id="QuanLyChamCong" Caption="Quản LÝ Chấm Công" ImageName="BO_Appearance" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="ThietBiChamCong" Caption="Thiết Bị Chấm Công" ImageName="BO_Security_Permission_Model" ViewId="MayChamCong_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
       <Item Id="QuanLyHoSo" Caption="Quản Lý Hồ Sơ" ImageName="BO_Report" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="CacLoaiHopDong" Caption="Các Loại Hợp Đồng" ImageName="BO_KPI_Scorecard" ViewId="LoaiHopDong_ListView" IsNewNode="True" />
@@ -111,7 +116,6 @@
               <LayoutGroup Id="HopDongLaoDong_col1" RelativeSize="100">
                 <LayoutItem Id="tenNhanVien" RelativeSize="5.4145516074450084" Index="0" />
                 <LayoutItem Id="loaiHopDong" RelativeSize="4.0609137055837561" Index="1" />
-                <LayoutItem Id="ngayBatDau" RelativeSize="4.0609137055837561" Index="2" />
                 <LayoutItem Id="ngayKetThuc" ViewItem="ngayKetThuc" Index="3" RelativeSize="4.0609137055837561" IsNewNode="True" />
                 <LayoutItem Id="mucLuong" ViewItem="mucLuong" Index="4" RelativeSize="4.0609137055837561" IsNewNode="True" />
                 <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="5" RelativeSize="78.341793570219963" IsNewNode="True" />
@@ -132,6 +136,49 @@
         <ColumnInfo Id="ghiChu" Removed="True" />
         <ColumnInfo Id="Id" Removed="True" />
         <ColumnInfo Id="mucLuong" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="MayChamCong_DetailView" EnableLayoutGroupImages="True">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="MayChamCong" RelativeSize="31.347962382445139" Caption="Thông Tin Máy Chấm Công" ImageName="BO_Scheduler">
+              <LayoutGroup Id="MayChamCong_col1" RelativeSize="49.922480620155042">
+                <LayoutItem Id="maMCC" RelativeSize="20" Index="0" />
+                <LayoutItem Id="tenMCCC" RelativeSize="15" Index="1" />
+                <LayoutItem Id="kieuKetNoi" RelativeSize="15" Index="2" />
+                <LayoutItem Id="diaChiIP" RelativeSize="15" Index="3" />
+                <LayoutItem Id="port" RelativeSize="15" Index="4" />
+                <LayoutItem Id="congCOM" RelativeSize="20" Index="5" />
+                <LayoutItem Id="Id" RelativeSize="17.391304347826086" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="MayChamCong_col2" RelativeSize="50.077519379844958">
+                <LayoutItem Id="tocDoTruyen" RelativeSize="20" />
+                <LayoutItem Id="diaChiWeb" RelativeSize="15" />
+                <LayoutItem Id="ngayDangKyTenMien" RelativeSize="15" />
+                <LayoutItem Id="serail" RelativeSize="15" Index="3" />
+                <LayoutItem Id="soDangKy" RelativeSize="15" Index="4" />
+                <LayoutItem Id="suDungWeb" ViewItem="suDungWeb" Index="5" RelativeSize="20" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="HinhAnh" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="68.652037617554853" Caption="Hình Ảnh thiết Bị" TextAlignMode="AlignWithChildren" ImageName="AlignmentCenterCenter" IsNewNode="True">
+              <LayoutItem Id="HinhAnh" ViewItem="HinhAnh" CaptionLocation="Top" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="MayChamCong_ListView" MasterDetailMode="ListViewAndDetailView">
+      <Columns>
+        <ColumnInfo Id="congCOM" Removed="True" />
+        <ColumnInfo Id="diaChiWeb" Removed="True" />
+        <ColumnInfo Id="HinhAnh" Removed="True" />
+        <ColumnInfo Id="Id" Removed="True" />
+        <ColumnInfo Id="ngayDangKyTenMien" Removed="True" />
+        <ColumnInfo Id="serail" Removed="True" />
+        <ColumnInfo Id="soDangKy" Removed="True" />
+        <ColumnInfo Id="suDungWeb" Removed="True" />
       </Columns>
     </ListView>
     <DetailView Id="NhanVien_DetailView" ImageName="BO_Customer" EnableLayoutGroupImages="True">

@@ -97,13 +97,17 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\BoPhan.cs" />
     <Compile Include="BusinessObjects\CaLamViec.cs" />
+    <Compile Include="BusinessObjects\CheckInOut.cs" />
     <Compile Include="BusinessObjects\ChucVu.cs" />
+    <Compile Include="BusinessObjects\GioCong.cs" />
     <Compile Include="BusinessObjects\EmployeeRole.cs" />
     <Compile Include="BusinessObjects\HopDongLaoDong.cs" />
     <Compile Include="BusinessObjects\LanBoSungGio.cs" />
     <Compile Include="BusinessObjects\LanNghiPhep.cs" />
     <Compile Include="BusinessObjects\LanTangCa.cs" />
     <Compile Include="BusinessObjects\LoaiHopDong.cs" />
+    <Compile Include="BusinessObjects\MayChamCong.cs" />
+    <Compile Include="BusinessObjects\NgayLe.cs" />
     <Compile Include="BusinessObjects\NguoiDung.cs" />
     <Compile Include="BusinessObjects\NhanVien.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
