@@ -123,11 +123,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 {
                     if(this.ngayKetThuc != null)
                     {
-                       if(this.ngayKetThuc <= DateTime.Today.AddDays(7))
+                       if((this.ngayKetThuc >= DateTime.Today.AddDays(7)) && (this.ngayKetThuc <= DateTime.Today.AddDays(10)))
                        {
                             return TinhTrangHopDong.saphethan;
                        }
-                       else if (this.ngayKetThuc > DateTime.Today)
+                       else if (this.ngayKetThuc < DateTime.Today)
                        {
                             return TinhTrangHopDong.hethan;
                        }

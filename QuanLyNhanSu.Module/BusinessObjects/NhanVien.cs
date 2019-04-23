@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
@@ -24,6 +25,18 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+        }
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            if(!Equals(this.ngayNghiViec, null))
+            {
+                this.daNghiViec = true;
+            }
+            else
+            {
+                this.daNghiViec = false;
+            }
         }
         int fId;
         [XafDisplayName("STT")]
@@ -71,6 +84,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         bool fDaNghiviec;
         [XafDisplayName("Đã Nghỉ Việc")]
+        [ModelDefault("AllowEdit","false")]
         public bool daNghiViec
         {
             get { return fDaNghiviec; }
@@ -114,6 +128,58 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fCaLamViec; }
             set { SetPropertyValue("caLamViec", ref fCaLamViec, value); }
         }
+        int fMaChamCong;
+        [XafDisplayName("Mã Chấm Công")]
+        public int MaChamCong
+        {
+            get { return fMaChamCong; }
+            set { SetPropertyValue("MaChamCong", ref fMaChamCong, value); }
+        }
+        public enum TinhTrangNhanVien
+        {
+            [XafDisplayName("Đang Bàn Giao")] thutuc = 0,
+            [XafDisplayName("Đã Nghỉ Việc")] nghiviec = 1,
+            [XafDisplayName("Đang Làm Việc")] hieuluc =2,
+            [XafDisplayName("Đang Đánh Giá")] danhgia = 3
+        }
+        [XafDisplayName("Tình Trạng Nhân Viên")]
+        public TinhTrangNhanVien tinhTrangNv
+        {
+            get
+            {
+                if (this.daNghiViec)
+                {
+                    return TinhTrangNhanVien.nghiviec;
+                }
+                //else if (Equals(hopDongLaoDongs, null))
+                //{
+                //}
+                else
+                {
+                    if (Equals(hopDongLaoDongs, null))
+                    {
+                        return TinhTrangNhanVien.thutuc;
+                    }
+                    else
+                    {
+                        var a = TinhTrangNhanVien.thutuc;
+                        foreach (HopDongLaoDong hd in hopDongLaoDongs)
+                        {
+                            if (hd.tinhTrang == HopDongLaoDong.TinhTrangHopDong.dangcohieuluc)
+                            {
+                                a = TinhTrangNhanVien.hieuluc;
+                                break;
+                            }
+                            if(hd.tinhTrang == HopDongLaoDong.TinhTrangHopDong.hethan)
+                            {
+                                a = TinhTrangNhanVien.danhgia;
+                            }
+                        }
+                        return a;
+                    }
+                }
+            }
+        }
         string fGhiChu;
         [XafDisplayName("Ghi Chú")]
         public string ghiChu
@@ -121,9 +187,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fGhiChu; }
             set { SetPropertyValue("ghiChu", ref fGhiChu, value); }
         }
-        [Association(@"NhanVien-CheckInOut")]
-        [XafDisplayName("Thời Gian Chấm Công")]
-        public XPCollection<CheckInOut> thoiGianChamCongs { get { return GetCollection<CheckInOut>("thoiGianChamCongs"); } }
+        //[Association(@"NhanVien-CheckInOut")]
+        //[XafDisplayName("Thời Gian Chấm Công")]
+        //public XPCollection<CheckInOut> thoiGianChamCongs { get { return GetCollection<CheckInOut>("thoiGianChamCongs"); } }
         [Association(@"NhanVien-LanNghiPheps")]
         [XafDisplayName("Lần Nghỉ Phép")]
         public XPCollection<LanNghiPhep> lanNghiPheps { get { return GetCollection<LanNghiPhep>("lanNghiPheps"); } }
