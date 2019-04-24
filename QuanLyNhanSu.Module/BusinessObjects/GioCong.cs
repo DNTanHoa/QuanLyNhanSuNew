@@ -32,9 +32,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fNguoiChamCong; }
             set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
         }
-        DateTime? fNgay;
+        NgayTinhCong fNgay;
+        [Association(@"NgayChamCong-GioCong")]
         [XafDisplayName("Ngày Chấm Công")]
-        public DateTime? ngay
+        public NgayTinhCong ngay
         {
             get { return fNgay; }
             set { SetPropertyValue("ngay", ref fNgay, value); }
@@ -60,5 +61,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fSoGioTangCa; }
             set { SetPropertyValue("soGioTangCa", ref fSoGioTangCa, value); }
         }
+        [Association(@"GioCong-CheckInOut")]
+        [XafDisplayName("Lần Chấm Công")]
+        public XPCollection<CheckInOut> checkInOuts { get { return GetCollection<CheckInOut>("checkInOuts"); } }
     }
 }
