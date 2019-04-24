@@ -17,6 +17,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
     [Persistent(@"NhanVien")]
     [DefaultProperty("hoTen")]
     [XafDisplayName("Nhân Viên")]
+    [Appearance("IsChecked", BackColor = "red", FontColor = "white", Context = "ListView", TargetItems = "hoTen", Criteria = "IsChecked = false")]
     public class NhanVien:XPLiteObject
     {
         public NhanVien(Session session):base(session)
@@ -136,6 +137,29 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get { return fMaChamCong; }
             set { SetPropertyValue("MaChamCong", ref fMaChamCong, value); }
+        }
+        public enum GioChamCong
+        {
+            [XafDisplayName("Chấm đúng")] dung = 0,
+            [XafDisplayName("Chưa Chấm")] chua = 1,
+            [XafDisplayName("Chấm Thiếu")] thieu = 2
+        }
+        public bool? IsChecked
+        {
+            get
+            {
+                string condition = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong.maNhanVien] = ?", this.maNhanVien),CriteriaOperator.Parse("IsOutlookIntervalToday([NgayCham])")).ToString();
+                CriteriaOperator criteria = CriteriaOperator.Parse(condition);
+                CheckInOut checkInOut = Session.FindObject<CheckInOut>(criteria);
+                if (Equals(checkInOut, null))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
         }
         public enum TinhTrangNhanVien
         {

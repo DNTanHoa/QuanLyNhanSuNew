@@ -5,10 +5,10 @@
       <Action Id="About Info" Caption="Về Chúng Tôi" />
       <Action Id="Cancel" Caption="Thoát" />
       <Action Id="CancelAction" Caption="Thoát" />
-      <Action Id="Close" Caption="Đóng" />
-      <Action Id="CopyCellValue" Caption="Sao Chép Nội Dung Ô" Shortcut="CtrlC" />
       <Action Id="ChangePasswordByUser" Caption="Thay Đổi Mật Khẩu Cá Nhân" />
       <Action Id="ChooseSkin" Caption="Thay Đổi Giao Diện" />
+      <Action Id="Close" Caption="Đóng" />
+      <Action Id="CopyCellValue" Caption="Sao Chép Nội Dung Ô" Shortcut="CtrlC" />
       <Action Id="Delete" Caption="Xóa" ConfirmationMessage="Bạn Có Chắc Chắn Muốn Xóa" />
       <Action Id="Delete Item" Caption="Xóa Nội Dung" ConfirmationMessage="Bạn Có Chắc Muốn Xóa?" />
       <Action Id="DeleteDashboard" Caption="Xóa Bảng Thống Kê" />
@@ -110,6 +110,7 @@
         <ColumnInfo Id="Id" Removed="True" />
       </Columns>
     </ListView>
+    <ListView Id="CheckInOut_ListView" Criteria="" />
     <DetailView Id="HopDongLaoDong_DetailView" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -342,8 +343,8 @@
       <Items IsNewNode="True">
         <PropertyEditor Id="boPhan" PropertyName="boPhan" IsNewNode="True" />
         <PropertyEditor Id="caLamViec" PropertyName="caLamViec" IsNewNode="True" />
-        <PropertyEditor Id="cmnd" PropertyName="cmnd" IsNewNode="True" />
         <PropertyEditor Id="chucVuNhanVien" PropertyName="chucVuNhanVien" IsNewNode="True" />
+        <PropertyEditor Id="cmnd" PropertyName="cmnd" IsNewNode="True" />
         <PropertyEditor Id="daNghiViec" PropertyName="daNghiViec" IsNewNode="True" />
         <PropertyEditor Id="dienThoaiLienLac" PropertyName="dienThoaiLienLac" IsNewNode="True" />
         <PropertyEditor Id="email" PropertyName="email" IsNewNode="True" />
@@ -359,8 +360,8 @@
         <PropertyEditor Id="maNhanVien" PropertyName="maNhanVien" IsNewNode="True" />
         <PropertyEditor Id="mucLuongHienTai" PropertyName="mucLuongHienTai" IsNewNode="True" />
         <PropertyEditor Id="ngayNghiViec" PropertyName="ngayNghiViec" IsNewNode="True" />
-        <PropertyEditor Id="tinhTrangNv" PropertyName="tinhTrangNv" IsNewNode="True" />
         <PropertyEditor Id="thoiGianChamCongs" PropertyName="thoiGianChamCongs" View="NhanVien_thoiGianChamCongs_ListView" IsNewNode="True" />
+        <PropertyEditor Id="tinhTrangNv" PropertyName="tinhTrangNv" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
