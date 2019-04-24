@@ -32,6 +32,33 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fNguoiChamCong; }
             set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
         }
-        
+        DateTime? fNgay;
+        [XafDisplayName("Ngày Chấm Công")]
+        public DateTime? ngay
+        {
+            get { return fNgay; }
+            set { SetPropertyValue("ngay", ref fNgay, value); }
+        }
+        int? fSoLanQuet;
+        [XafDisplayName("Số Lần Chấm Công")]
+        public int? soLanQuet
+        {
+            get { return fSoLanQuet; }
+            set { SetPropertyValue("soLanQuet", ref fSoLanQuet, value); }
+        }
+        double? fSoGioCoBan;
+        [XafDisplayName("Số Giờ Cơ Bản")]
+        public double? soGioCoBan
+        {
+            get { return fSoGioCoBan; }
+            set { SetPropertyValue("soGioCoBan", ref fSoGioCoBan, value); }
+        }
+        double? fSoGioTangCa;
+        [XafDisplayName("Số Giờ Tăng Ca")]
+        public double? soGioTangCa
+        {
+            get { return fSoGioTangCa; }
+            set { SetPropertyValue("soGioTangCa", ref fSoGioTangCa, value); }
+        }
     }
 }
