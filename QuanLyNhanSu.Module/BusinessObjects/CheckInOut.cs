@@ -1,4 +1,7 @@
-﻿using DevExpress.ExpressApp.DC;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,7 @@ using System.Threading.Tasks;
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [Persistent(@"CheckInOut")]
+    [DefaultClassOptions]
     [XafDisplayName("Giờ Chấm Công")]
     public class CheckInOut : XPLiteObject
     {
@@ -16,6 +20,23 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+        }
+        protected override void OnSaved()
+        {
+            base.OnSaved();
+            NhanVien nhanVien = Session.FindObject<NhanVien>(new BinaryOperator("MaChamCong", this.MaChamCong));
+            this.nguoiChamCong = nhanVien;
+            Session.CommitTransaction();
+        }
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            if (!Equals(this.nguoiChamCong, null))
+            {
+                NhanVien nhanVien = Session.FindObject<NhanVien>(new BinaryOperator("MaChamCong", this.MaChamCong));
+                this.nguoiChamCong = nhanVien;
+                Session.CommitTransaction();
+            }
         }
         int fId;
         [Key(true)]
@@ -30,7 +51,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         [Association(@"NhanVien-CheckInOut")]
         public NhanVien nguoiChamCong
         {
-            get { return fNguoiChamCong; }
+            get
+            {
+                return fNguoiChamCong;
+            }
             set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
         }
         int fMaChamCong;
@@ -49,6 +73,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         DateTime fGioCham;
         [XafDisplayName("Giờ Chấm")]
+        [ModelDefault("DisplayFormat","{0:HH:mm}")]
+        [ModelDefault("EditMask", "HH:mm")]
         public DateTime GioCham
         {
             get { return fGioCham; }
@@ -76,10 +102,21 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             set { SetPropertyValue("MaSoMay", ref fMaSoMay, value); }
         }
         string fTenMay;
+        [XafDisplayName("Tên Máy")]
         public string TenMay
         {
             get { return fTenMay; }
             set { SetPropertyValue("TenMay", ref fTenMay, value); }
+        }
+        GioCong fgioCong;
+        [XafDisplayName("Giờ Công")]
+        [Association(@"GioCong-CheckInOut")]
+        [VisibleInListView(false)]
+        [VisibleInDetailView(false)]
+        public GioCong gioCong
+        {
+            get { return fgioCong; }
+            set { SetPropertyValue("gioCong", ref fgioCong, value); }
         }
     }
 }

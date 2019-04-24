@@ -129,6 +129,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             set { SetPropertyValue("caLamViec", ref fCaLamViec, value); }
         }
         int fMaChamCong;
+        [VisibleInListView(false)]
         [XafDisplayName("Mã Chấm Công")]
         public int MaChamCong
         {
@@ -143,6 +144,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             [XafDisplayName("Đang Đánh Giá")] danhgia = 3
         }
         [XafDisplayName("Tình Trạng Nhân Viên")]
+        [VisibleInListView(false)]
         public TinhTrangNhanVien tinhTrangNv
         {
             get

@@ -40,12 +40,28 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fngayBatDauNghi; }
             set { SetPropertyValue("ngayBatDauNghi", ref fngayBatDauNghi, value); }
         }
-        DateTime fngayKetThuc;
-        [XafDisplayName("Ngày Kết Thúc")]
-        public DateTime ngayKetThuc
+        int? fSoNgayNghi;
+        [XafDisplayName("Số Ngày Nghỉ")]
+        public int? soNgayNghi
         {
-            get { return fngayKetThuc; }
-            set { SetPropertyValue("ngayKetThuc", ref fngayKetThuc, value); }
+            get { return fSoNgayNghi; }
+            set { SetPropertyValue("soNgayNghi", ref fSoNgayNghi, value); }
+        }
+   
+        [XafDisplayName("Ngày Kết Thúc")]
+        public DateTime? ngayKetThuc
+        {
+            get
+            {
+                if(!Equals(this.ngayBatDauNghi,null) && !Equals(this.soNgayNghi, null))
+                {
+                    return this.ngayBatDauNghi.AddDays((int)this.soNgayNghi-1);
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
         string fGhiChu;
         [XafDisplayName("Ghi Chú")]
