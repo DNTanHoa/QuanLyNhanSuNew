@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -177,7 +178,21 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 }
             }
         }
-
+        //public enum DiemDanh
+        //{
+        //    [XafDisplayName("Chưa chấm công")] chua = 0,
+        //    [XafDisplayName("Chấm công thiếu")] thieu = 1,
+        //    [XafDisplayName("Chấm công đủ")] du = 2
+        //}
+        //[XafDisplayName("Tình Trạng Chấm Công")]
+        //public DiemDanh diemDanhNgay
+        //{
+        //    get
+        //    {
+        //        CheckInOut cks = Session.GetObjectByKey<CheckInOut>(new BinaryOperator("NgayCham", DateTime.Now));
+        //        if()
+        //    }
+        //}
         [XafDisplayName("Mức Lương Hiện Tại")]
         [VisibleInListView(false)]
         public double? mucLuongHienTai
