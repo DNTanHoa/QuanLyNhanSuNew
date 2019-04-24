@@ -151,9 +151,6 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 {
                     return TinhTrangNhanVien.nghiviec;
                 }
-                //else if (Equals(hopDongLaoDongs, null))
-                //{
-                //}
                 else
                 {
                     if (Equals(hopDongLaoDongs, null))
@@ -187,9 +184,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fGhiChu; }
             set { SetPropertyValue("ghiChu", ref fGhiChu, value); }
         }
-        //[Association(@"NhanVien-CheckInOut")]
-        //[XafDisplayName("Thời Gian Chấm Công")]
-        //public XPCollection<CheckInOut> thoiGianChamCongs { get { return GetCollection<CheckInOut>("thoiGianChamCongs"); } }
+        [Association(@"NhanVien-CheckInOut")]
+        [XafDisplayName("Thời Gian Chấm Công")]
+        public XPCollection<CheckInOut2> thoiGianChamCongs { get { return GetCollection<CheckInOut2>("thoiGianChamCongs"); } }
         [Association(@"NhanVien-LanNghiPheps")]
         [XafDisplayName("Lần Nghỉ Phép")]
         public XPCollection<LanNghiPhep> lanNghiPheps { get { return GetCollection<LanNghiPhep>("lanNghiPheps"); } }

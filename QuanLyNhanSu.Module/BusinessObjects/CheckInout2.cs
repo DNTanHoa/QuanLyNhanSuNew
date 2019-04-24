@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,20 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
-    [Persistent(@"CheckInOut")]
+    [DefaultClassOptions]
+    [Persistent(@"CheckInOut2")]
     [XafDisplayName("Giờ Chấm Công")]
-    public class CheckInOut : XPLiteObject
+    public class CheckInOut2 : XPLiteObject
     {
-        public CheckInOut(Session session) : base(session) { }
+        public CheckInOut2(Session session) : base(session) { }
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+        }
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            //IEnumerable<CheckInOut> checkInOuts = 
         }
         int fId;
         [Key(true)]
@@ -25,14 +32,14 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fId; }
             set { SetPropertyValue("Id", ref fId, value); }
         }
-        //NhanVien fNguoiChamCong;
-        //[XafDisplayName("Người Chấm Công")]
-        //[Association(@"NhanVien-CheckInOut")]
-        //public NhanVien nguoiChamCong
-        //{
-        //    get { return fNguoiChamCong; }
-        //    set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
-        //}
+        NhanVien fNguoiChamCong;
+        [XafDisplayName("Người Chấm Công")]
+        [Association(@"NhanVien-CheckInOut")]
+        public NhanVien nguoiChamCong
+        {
+            get { return fNguoiChamCong; }
+            set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
+        }
         int fMaChamCong;
         [XafDisplayName("Mã Chấm Công")]
         public int MaChamCong
