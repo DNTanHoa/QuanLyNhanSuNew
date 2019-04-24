@@ -25,14 +25,14 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fId; }
             set { SetPropertyValue("Id", ref fId, value); }
         }
-        //NhanVien fNguoiChamCong;
-        //[XafDisplayName("Người Chấm Công")]
-        //[Association(@"NhanVien-CheckInOut")]
-        //public NhanVien nguoiChamCong
-        //{
-        //    get { return fNguoiChamCong; }
-        //    set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
-        //}
+        NhanVien fNguoiChamCong;
+        [XafDisplayName("Người Chấm Công")]
+        [Association(@"NhanVien-CheckInOut")]
+        public NhanVien nguoiChamCong
+        {
+            get { return fNguoiChamCong; }
+            set { SetPropertyValue("nguoiChamCong", ref fNguoiChamCong, value); }
+        }
         int fMaChamCong;
         [XafDisplayName("Mã Chấm Công")]
         public int MaChamCong

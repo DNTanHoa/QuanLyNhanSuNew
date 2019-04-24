@@ -115,32 +115,36 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if(this.tenNhanVien.daNghiViec)
+                try
                 {
-                    return TinhTrangHopDong.hethan;
-                }
-                else
-                {
-                    if(this.ngayKetThuc != null)
+                    if ((bool)this.tenNhanVien.daNghiViec)
                     {
-                       if((this.ngayKetThuc >= DateTime.Today.AddDays(7)) && (this.ngayKetThuc <= DateTime.Today.AddDays(10)))
-                       {
-                            return TinhTrangHopDong.saphethan;
-                       }
-                       else if (this.ngayKetThuc < DateTime.Today)
-                       {
-                            return TinhTrangHopDong.hethan;
-                       }
-                       else
-                       {
-                            return TinhTrangHopDong.dangcohieuluc;
-                       }
+                        return TinhTrangHopDong.hethan;
                     }
                     else
                     {
-                        return TinhTrangHopDong.khongxacdinh;
+                        if (this.ngayKetThuc != null)
+                        {
+                            if ((this.ngayKetThuc >= DateTime.Today.AddDays(7)) && (this.ngayKetThuc <= DateTime.Today.AddDays(10)))
+                            {
+                                return TinhTrangHopDong.saphethan;
+                            }
+                            else if (this.ngayKetThuc < DateTime.Today)
+                            {
+                                return TinhTrangHopDong.hethan;
+                            }
+                            else
+                            {
+                                return TinhTrangHopDong.dangcohieuluc;
+                            }
+                        }
+                        else
+                        {
+                            return TinhTrangHopDong.khongxacdinh;
+                        }
                     }
                 }
+                catch { return TinhTrangHopDong.khongxacdinh; }
             }
         }
     }

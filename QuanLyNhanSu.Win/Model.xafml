@@ -5,10 +5,10 @@
       <Action Id="About Info" Caption="Về Chúng Tôi" />
       <Action Id="Cancel" Caption="Thoát" />
       <Action Id="CancelAction" Caption="Thoát" />
-      <Action Id="Close" Caption="Đóng" />
-      <Action Id="CopyCellValue" Caption="Sao Chép Nội Dung Ô" Shortcut="CtrlC" />
       <Action Id="ChangePasswordByUser" Caption="Thay Đổi Mật Khẩu Cá Nhân" />
       <Action Id="ChooseSkin" Caption="Thay Đổi Giao Diện" />
+      <Action Id="Close" Caption="Đóng" />
+      <Action Id="CopyCellValue" Caption="Sao Chép Nội Dung Ô" Shortcut="CtrlC" />
       <Action Id="Delete" Caption="Xóa" ConfirmationMessage="Bạn Có Chắc Chắn Muốn Xóa" />
       <Action Id="Delete Item" Caption="Xóa Nội Dung" ConfirmationMessage="Bạn Có Chắc Muốn Xóa?" />
       <Action Id="DeleteDashboard" Caption="Xóa Bảng Thống Kê" />
@@ -108,17 +108,21 @@
         <ColumnInfo Id="Id" Removed="True" />
       </Columns>
     </ListView>
-    <DetailView Id="HopDongLaoDong_DetailView">
+    <DetailView Id="HopDongLaoDong_DetailView" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="HopDongLaoDong" Caption="Hợp Đồng Lao Động" RelativeSize="100" Direction="Vertical">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="BO_Contract">
+            <LayoutGroup Id="HopDongLaoDong" Caption="Hợp Đồng Lao Động" RelativeSize="100" Direction="Vertical" ImageName="BO_Contract">
               <LayoutGroup Id="HopDongLaoDong_col1" RelativeSize="100">
-                <LayoutItem Id="tenNhanVien" RelativeSize="5.4145516074450084" Index="0" />
-                <LayoutItem Id="loaiHopDong" RelativeSize="4.0609137055837561" Index="1" />
-                <LayoutItem Id="ngayKetThuc" ViewItem="ngayKetThuc" Index="3" RelativeSize="4.0609137055837561" IsNewNode="True" />
-                <LayoutItem Id="mucLuong" ViewItem="mucLuong" Index="4" RelativeSize="4.0609137055837561" IsNewNode="True" />
-                <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="5" RelativeSize="78.341793570219963" IsNewNode="True" />
+                <LayoutItem Id="tenNhanVien" RelativeSize="6.5040650406504064" Index="0" />
+                <LayoutItem Id="loaiHopDong" RelativeSize="4.8780487804878048" Index="1" />
+                <LayoutItem Id="mucLuong" ViewItem="mucLuong" Index="2" RelativeSize="4.8780487804878048" IsNewNode="True" />
+                <LayoutItem Id="soHopDongLaoDong" Index="3" RelativeSize="4.8780487804878048" />
+                <LayoutItem Id="ngayKiHopDong" Index="4" RelativeSize="4.8780487804878048" />
+                <LayoutItem Id="ngayBatDau" ViewItem="ngayBatDau" Index="5" RelativeSize="4.8780487804878048" IsNewNode="True" />
+                <LayoutItem Id="ngayKetThuc" ViewItem="ngayKetThuc" Index="6" RelativeSize="4.8780487804878048" IsNewNode="True" />
+                <LayoutItem Id="tinhTrang" ViewItem="tinhTrang" Index="7" RelativeSize="4.8780487804878048" IsNewNode="True" />
+                <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="8" RelativeSize="59.349593495934961" IsNewNode="True" />
                 <LayoutItem Id="Id" RelativeSize="4.5197740112994351" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="HopDongLaoDong_col2" RelativeSize="50" Caption="HopDongLaoDong_col2" Direction="Horizontal" Removed="True">
@@ -138,6 +142,25 @@
         <ColumnInfo Id="mucLuong" Removed="True" />
       </Columns>
     </ListView>
+    <DetailView Id="LoaiHopDong_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="EditQuery">
+            <LayoutGroup Id="LoaiHopDong" RelativeSize="100" Caption="Loại Hợp Đồng" ImageName="EditQuery">
+              <LayoutGroup Id="LoaiHopDong_col1" RelativeSize="50">
+                <LayoutItem Id="tenHopDong" Index="0" RelativeSize="4.5197740112994351" />
+                <LayoutItem Id="loaiThoiHan" Index="1" RelativeSize="95.480225988700568" />
+                <LayoutItem Id="Id" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="LoaiHopDong_col2" RelativeSize="50">
+                <LayoutItem Id="thoiHanHopDong" RelativeSize="4.5197740112994351" />
+                <LayoutItem Id="ghiChu" RelativeSize="95.480225988700568" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="MayChamCong_DetailView" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -184,26 +207,28 @@
     <DetailView Id="NhanVien_DetailView" ImageName="BO_Customer" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="BO_Contact" TextAlignMode="UseParentOptions">
-            <LayoutGroup Id="NhanVien" Caption="Thông Tin Nhân Viên" RelativeSize="100" Direction="Vertical" ImageName="BO_Person">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="79.073756432247" ImageName="BO_Contact" TextAlignMode="UseParentOptions">
+            <LayoutGroup Id="NhanVien" Caption="Thông Tin Nhân Viên" RelativeSize="84.3817787418655" Direction="Vertical" ImageName="BO_Person">
               <LayoutGroup Id="NhanVien_col1" RelativeSize="100" Caption="NhanVien_col1" Direction="Horizontal" ImageName="BO_Person">
-                <LayoutGroup Id="Auto065f830b-ff5c-412e-99f2-805a90fb3af3" ShowCaption="False" Caption="" Index="0" RelativeSize="57.991803278688522" ImageName="BO_Person" IsNewNode="True">
-                  <LayoutItem Id="Id" ViewItem="Id" Index="0" RelativeSize="5.9259259259259256" IsNewNode="True" />
-                  <LayoutItem Id="hoTen" ViewItem="hoTen" Index="1" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="maNhanVien" ViewItem="maNhanVien" Index="2" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="dienThoaiLienLac" ViewItem="dienThoaiLienLac" Index="3" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="email" ViewItem="email" Index="4" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="chucVuNhanVien" ViewItem="chucVuNhanVien" Index="5" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="boPhan" ViewItem="boPhan" Index="6" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="7" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="caLamViec" ViewItem="caLamViec" Index="8" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="cmnd" ViewItem="cmnd" Index="9" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="ngayNghiViec" ViewItem="ngayNghiViec" Index="10" RelativeSize="4.4444444444444446" IsNewNode="True" />
-                  <LayoutItem Id="daNghiViec" ViewItem="daNghiViec" Index="11" RelativeSize="49.629629629629626" IsNewNode="True" />
+                <LayoutGroup Id="Auto065f830b-ff5c-412e-99f2-805a90fb3af3" ShowCaption="False" Caption="Auto065f830b-ff5c-412e-99f2-805a90fb3af3(5)" Index="0" RelativeSize="50.574712643678161" ImageName="BO_Person" IsNewNode="True">
+                  <LayoutItem Id="Id" ViewItem="Id" Index="0" RelativeSize="9.1690544412607444" IsNewNode="True" />
+                  <LayoutItem Id="hoTen" ViewItem="hoTen" Index="1" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="maNhanVien" ViewItem="maNhanVien" Index="2" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="MaChamCong" ViewItem="MaChamCong" Index="3" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="mucLuongHienTai" ViewItem="mucLuongHienTai" Index="4" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="dienThoaiLienLac" ViewItem="dienThoaiLienLac" Index="5" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="email" ViewItem="email" Index="6" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="chucVuNhanVien" ViewItem="chucVuNhanVien" Index="7" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="boPhan" ViewItem="boPhan" Index="8" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="ghiChu" ViewItem="ghiChu" Index="9" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="caLamViec" ViewItem="caLamViec" Index="10" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="cmnd" ViewItem="cmnd" Index="11" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="ngayNghiViec" ViewItem="ngayNghiViec" Index="12" RelativeSize="6.8767908309455583" IsNewNode="True" />
+                  <LayoutItem Id="daNghiViec" ViewItem="daNghiViec" Index="13" RelativeSize="8.30945558739255" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutItem Id="Id" ViewItem="Id" Index="0" RelativeSize="5.9259259259259256" Removed="True" />
                 <LayoutItem Id="hoTen" ViewItem="hoTen" Index="1" RelativeSize="4.4444444444444446" Removed="True" />
-                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="42.008196721311478" Caption="Hình Ảnh Nhân Viên" TextAlignMode="AlignWithChildren" ImageName="BO_Person" IsNewNode="True">
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="49.425287356321839" Caption="Hình Ảnh Nhân Viên" TextAlignMode="AlignWithChildren" ImageName="BO_Person" IsNewNode="True">
                   <LayoutItem Id="HinhAnh" ViewItem="HinhAnh" CaptionLocation="Top" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutItem Id="maNhanVien" ViewItem="maNhanVien" Index="2" RelativeSize="4.4444444444444446" Removed="True" />
@@ -211,6 +236,7 @@
                 <LayoutItem Id="email" ViewItem="email" Index="4" RelativeSize="4.4444444444444446" Removed="True" />
                 <LayoutItem Id="cmnd" ViewItem="cmnd" Index="9" RelativeSize="4.4444444444444446" Removed="True" />
                 <LayoutItem Id="daNghiViec" ViewItem="daNghiViec" Index="11" RelativeSize="3.8888888888888888" Removed="True" />
+                <LayoutItem Id="ngayNghiViec" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="NhanVien_col2" RelativeSize="50" Caption="NhanVien_col2" TextAlignMode="UseParentOptions" Direction="Horizontal" Removed="True">
                 <LayoutItem Id="boPhan" RelativeSize="5.9259259259259256" Index="0" Removed="True" />
@@ -221,13 +247,26 @@
                 <LayoutItem Id="ngayNghiViec" RelativeSize="4.5197740112994351" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="15.61822125813449" Caption="Tình trạng nhân viên" Direction="Vertical" TextAlignMode="AlignWithChildren" ImageName="BO_StateMachine" IsNewNode="True">
+              <LayoutItem Id="tinhTrangNv" ViewItem="tinhTrangNv" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="thoiGianChamCongs" ImageName="Security_Fingerprint" />
-            <LayoutGroup Id="lanNghiPheps" ImageName="BO_Resume" />
-            <LayoutGroup Id="lanTangCas" ImageName="BO_Opportunity" />
-            <LayoutGroup Id="lanBoSungGios" ImageName="BO_Appearance" />
-            <LayoutGroup Id="hopDongLaoDongs" ImageName="BO_KPI_Scorecard" />
+          <TabbedGroup Id="Tabs" RelativeSize="20.926243567753">
+            <LayoutGroup Id="thoiGianChamCongs" ImageName="Security_Fingerprint" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="thoiGianChamCongs" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="lanNghiPheps" ImageName="BO_Resume" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="lanNghiPheps" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="lanTangCas" ImageName="BO_Opportunity" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="lanTangCas" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="lanBoSungGios" ImageName="BO_Appearance" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="lanBoSungGios" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="hopDongLaoDongs" ImageName="BO_KPI_Scorecard" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="hopDongLaoDongs" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>
       </Layout>

@@ -82,10 +82,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fCMND; }
             set { SetPropertyValue("cmnd", ref fCMND, value); }
         }
-        bool fDaNghiviec;
+        bool? fDaNghiviec;
         [XafDisplayName("Đã Nghỉ Việc")]
         [ModelDefault("AllowEdit","false")]
-        public bool daNghiViec
+        public bool? daNghiViec
         {
             get { return fDaNghiviec; }
             set { SetPropertyValue("daNghiViec",ref fDaNghiviec, value); }
@@ -147,7 +147,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if (this.daNghiViec)
+                if ((bool)this.daNghiViec)
                 {
                     return TinhTrangNhanVien.nghiviec;
                 }
@@ -177,6 +177,24 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 }
             }
         }
+
+        [XafDisplayName("Mức Lương Hiện Tại")]
+        [VisibleInListView(false)]
+        public double? mucLuongHienTai
+        {
+            get
+            {
+                HopDongLaoDong hopDong = this.hopDongLaoDongs.LastOrDefault<HopDongLaoDong>();
+                if(!Equals(hopDong, null))
+                {
+                    return hopDong.mucLuong;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         string fGhiChu;
         [XafDisplayName("Ghi Chú")]
         public string ghiChu
@@ -186,7 +204,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         [Association(@"NhanVien-CheckInOut")]
         [XafDisplayName("Thời Gian Chấm Công")]
-        public XPCollection<CheckInOut2> thoiGianChamCongs { get { return GetCollection<CheckInOut2>("thoiGianChamCongs"); } }
+        public XPCollection<CheckInOut> thoiGianChamCongs { get { return GetCollection<CheckInOut>("thoiGianChamCongs"); } }
         [Association(@"NhanVien-LanNghiPheps")]
         [XafDisplayName("Lần Nghỉ Phép")]
         public XPCollection<LanNghiPhep> lanNghiPheps { get { return GetCollection<LanNghiPhep>("lanNghiPheps"); } }
