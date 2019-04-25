@@ -105,12 +105,20 @@
     <Compile Include="BusinessObjects\LanBoSungGio.cs" />
     <Compile Include="BusinessObjects\LanNghiPhep.cs" />
     <Compile Include="BusinessObjects\LanTangCa.cs" />
+    <Compile Include="BusinessObjects\LanXinDiTre.cs" />
     <Compile Include="BusinessObjects\LoaiHopDong.cs" />
+    <Compile Include="BusinessObjects\LoaiTangCa.cs" />
     <Compile Include="BusinessObjects\MayChamCong.cs" />
     <Compile Include="BusinessObjects\NgayLe.cs" />
     <Compile Include="BusinessObjects\NgayTinhCong.cs" />
     <Compile Include="BusinessObjects\NguoiDung.cs" />
     <Compile Include="BusinessObjects\NhanVien.cs" />
+    <Compile Include="Controllers\CapNhatGioCong.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CapNhatGioCong.Designer.cs">
+      <DependentUpon>CapNhatGioCong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CapNhatNgayCong.cs">
       <SubType>Component</SubType>
     </Compile>

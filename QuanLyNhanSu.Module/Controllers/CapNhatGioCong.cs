@@ -18,9 +18,9 @@ using QuanLyNhanSu.Module.BusinessObjects;
 namespace QuanLyNhanSu.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
-    public partial class CapNhatNgayCong : ViewController
+    public partial class CapNhatGioCong : ViewController
     {
-        public CapNhatNgayCong()
+        public CapNhatGioCong()
         {
             InitializeComponent();
             // Target required Views (via the TargetXXX properties) and create their Actions.
@@ -28,22 +28,20 @@ namespace QuanLyNhanSu.Module.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            NgayTinhCong ngayTinh = ObjectSpace.FindObject<NgayTinhCong>(new BinaryOperator("ngayChamCong",DateTime.Today));
-            if (Equals(ngayTinh, null))
+            string condition = CriteriaOperator.And(CriteriaOperator.Parse("[gioCong] Is Null")).ToString();
+            CriteriaOperator criteria = CriteriaOperator.Parse(condition);
+            IList<CheckInOut> checkInOuts = ObjectSpace.GetObjects<CheckInOut>(criteria);
+            foreach (CheckInOut checkInOut in checkInOuts)
             {
-                NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
-                ngayTinhCong.ngayChamCong = DateTime.Today;
-                var nhanViens = ObjectSpace.GetObjects<NhanVien>(new BinaryOperator("daNghiViec", false));
-                foreach(NhanVien nhanVien in nhanViens)
-                {
-                    GioCong gioCong = ObjectSpace.CreateObject<GioCong>();
-                    gioCong.nguoiChamCong = nhanVien;
-                    gioCong.ngay = ngayTinhCong;
-                }
-                ObjectSpace.CommitChanges();
-                ObjectSpace.Refresh();
-                View.Refresh();
-            }   
+                CheckInOut check = ObjectSpace.GetObjectByKey<CheckInOut>(checkInOut.Id);
+                CriteriaOperator criteriaOperator = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong] = ?", check.nguoiChamCong), CriteriaOperator.Parse("[ngay.ngayChamCong] = ?", check.NgayCham));
+                GioCong gio = ObjectSpace.FindObject<GioCong>(criteriaOperator);
+                check.gioCong = gio;
+            }
+            ObjectSpace.CommitChanges();
+            ObjectSpace.Refresh();
+            View.Refresh();
+            Console.WriteLine(checkInOuts);
         }
         protected override void OnViewControlsCreated()
         {
@@ -52,7 +50,7 @@ namespace QuanLyNhanSu.Module.Controllers
         }
         protected override void OnDeactivated()
         {
-            
+            // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
     }

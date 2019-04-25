@@ -1,5 +1,7 @@
-﻿using DevExpress.ExpressApp.DC;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -42,6 +44,28 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fNgayTangCa; }
             set { SetPropertyValue("ngayTangCa", ref fNgayTangCa, value); }
         }
+        LoaiTangCa fLoaiTangCa;
+        [XafDisplayName("Loại Tăng Ca")]
+        public LoaiTangCa loaiTangCa
+        {
+            get { return fLoaiTangCa; }
+            set { SetPropertyValue("loaiTangCa", ref fLoaiTangCa, value); }
+        }
+        [XafDisplayName("Hệ Số Nhân Giờ")]
+        public int heSoNhanGio
+        {
+            get
+            {
+                if(!Equals(this.loaiTangCa,null))
+                {
+                    return this.loaiTangCa.heSoNhanGio;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
         DateTime fThoiGianBatDau;
         [XafDisplayName("Thời Gian Bắt Đàu")]
         [ModelDefault("DisplayFormat", "{0:HH:mm}")]
@@ -80,6 +104,34 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get { return fGhiChu; }
             set { SetPropertyValue("ghiChu", ref fGhiChu, value); }
+        }
+        GioCong fgioCong;
+        [VisibleInListView(false)]
+        [VisibleInDetailView(false)]
+        [Association(@"GiocCong-LanTangCa")]
+        public GioCong gioCong
+        {
+            get
+            {
+                if(!Equals(this.ngayDuyet,null))
+                {
+                    CriteriaOperator criteria = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong] = ?", this.nguoiTangCa), CriteriaOperator.Parse("[ngay.ngayChamCong] = ?", this.ngayDuyet));
+                    GioCong gioCong = Session.FindObject<GioCong>(criteria);
+                    if (!Equals(gioCong))
+                    {
+                        return gioCong;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set { SetPropertyValue("gioCong", ref fgioCong, value); }
         }
     }
 }
