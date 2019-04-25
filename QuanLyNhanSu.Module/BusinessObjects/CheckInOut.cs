@@ -31,12 +31,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         protected override void OnLoaded()
         {
             base.OnLoaded();
-            //if (!Equals(this.MaChamCong, null) && (Equals(this.nguoiChamCong,null)))
-            //{
-            //    NhanVien nhanVien = Session.FindObject<NhanVien>(new BinaryOperator("MaChamCong", this.MaChamCong));
-            //    this.nguoiChamCong = nhanVien;
-            //    Session.CommitTransaction();
-            //}
+            if (!Equals(this.MaChamCong, null) && (Equals(this.nguoiChamCong, null)))
+            {
+                NhanVien nhanVien = Session.FindObject<NhanVien>(new BinaryOperator("MaChamCong", this.MaChamCong));
+                this.nguoiChamCong = nhanVien;
+                Session.CommitTransaction();
+            }
         }
         int fId;
         [Key(true)]
@@ -95,6 +95,15 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             [XafDisplayName("Giờ Vào Giữa Ca")] vaogiuaca = 2,
             [XafDisplayName("Giờ Tan Ca")] tanca = 3
         }
+        [XafDisplayName("Loại Chấm Công")]
+        [ModelDefault("AllowEdit","false")]
+        //public LoaiGio loaiChamCong
+        //{
+        //    get
+        //    {
+        //        if(this.GioCham.Hour)
+        //    }
+        //}
         int? fIdMCC;
         [XafDisplayName("Số thứ tự máy")]
         public int? idMCC

@@ -33,6 +33,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 this.Delete();
             }
         }
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            Session.CommitTransaction();
+        }
         int fId;
         [Key(true)]
         [XafDisplayName("STT")]

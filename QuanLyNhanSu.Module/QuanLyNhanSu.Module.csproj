@@ -133,6 +133,12 @@
     <Compile Include="Controllers\CapNhatNgayCong.Designer.cs">
       <DependentUpon>CapNhatNgayCong.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CapNhatNhanVien.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CapNhatNhanVien.Designer.cs">
+      <DependentUpon>CapNhatNhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CapNhatThangChamCong.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,6 +150,12 @@
     </Compile>
     <Compile Include="Controllers\CapNhatXinDiTre.Designer.cs">
       <DependentUpon>CapNhatXinDiTre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\commit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\commit.Designer.cs">
+      <DependentUpon>commit.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DuyetNghi.cs">
       <SubType>Component</SubType>
@@ -175,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\CapNhatNgayCong.resx">
       <DependentUpon>CapNhatNgayCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatNhanVien.resx">
+      <DependentUpon>CapNhatNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\CapNhatThangChamCong.resx">
       <DependentUpon>CapNhatThangChamCong.cs</DependentUpon>

@@ -35,11 +35,12 @@ namespace QuanLyNhanSu.Module.Controllers
             /*Tìm ngày cuối cùng lúc trước khi cập nhật*/
             CriteriaOperator criteria = new BinaryOperator("Id", new JoinOperand("NgayTinhCong", null, Aggregate.Max, new OperandProperty("Id")));
             var ngayTinhCongs = (NgayTinhCong)ObjectSpace.FindObject<NgayTinhCong>(criteria);
+            CriteriaOperator criteriaOperator = CriteriaOperator.Or(CriteriaOperator.Parse("[daNghiViec] Is Null"), CriteriaOperator.Parse("[daNghiViec] = ?", false));
             if (Equals(ngayTinhCongs, null))
             {
                 NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
                 ngayTinhCong.ngayChamCong = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>();// new BinaryOperator("daNghiViec", false));
+                IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>(criteriaOperator);
                 if (Equals(nhanViens, null))
                 {
                     MessageBox.Show("Khong co nhan vien");
@@ -52,9 +53,6 @@ namespace QuanLyNhanSu.Module.Controllers
                         gioCong.nguoiChamCong = nhanVien;
                         gioCong.ngay = ngayTinhCong;
                     }
-                    ObjectSpace.CommitChanges();
-                    ObjectSpace.Refresh();
-                    View.Refresh();
                 }
             }
             else
@@ -69,7 +67,7 @@ namespace QuanLyNhanSu.Module.Controllers
                     {
                         NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
                         ngayTinhCong.ngayChamCong = ngayCuoiCung.AddDays(i);
-                        IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>();//new BinaryOperator("daNghiViec", false));
+                        IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>(criteriaOperator);
                         foreach (NhanVien nhanVien in nhanViens)
                         {
                             GioCong gioCong = ObjectSpace.CreateObject<GioCong>();
@@ -77,13 +75,11 @@ namespace QuanLyNhanSu.Module.Controllers
                             gioCong.ngay = ngayTinhCong;
                         }
                     }
-                    ObjectSpace.CommitChanges();
-                    ObjectSpace.Refresh();
-                    View.Refresh();
                 }
             }
-            
-            
+            ObjectSpace.CommitChanges();
+            ObjectSpace.Refresh();
+            View.Refresh();
         }
         protected override void OnViewControlsCreated()
         {

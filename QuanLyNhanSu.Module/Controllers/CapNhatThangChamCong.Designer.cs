@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            // 
+            // CapNhatThangChamCong
+            // 
+            this.TargetViewId = "NguoiDung_ListView";
 
         }
 

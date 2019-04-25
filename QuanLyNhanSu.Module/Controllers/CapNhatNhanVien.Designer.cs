@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanSu.Module.Controllers
 {
-    partial class CapNhatNgayCong
+    partial class CapNhatNhanVien
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             // 
-            // CapNhatNgayCong
+            // CapNhatNhanVien
             // 
-            this.TargetViewId = "NguoiDung_ListView";
+            this.TargetObjectType = typeof(QuanLyNhanSu.Module.BusinessObjects.NhanVien);
 
         }
 

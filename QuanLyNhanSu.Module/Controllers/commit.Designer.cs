@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanSu.Module.Controllers
 {
-    partial class CapNhatNgayCong
+    partial class commit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            // 
-            // CapNhatNgayCong
-            // 
-            this.TargetViewId = "NguoiDung_ListView";
-
+            this.components = new System.ComponentModel.Container();
         }
 
         #endregion

@@ -35,16 +35,23 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             base.OnSaving();
 
         }
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+        }
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
             base.OnChanged(propertyName, oldValue, newValue);
-            if(!Equals(this.ngayNghiViec, null))
+            if (!Equals(this.ngayNghiViec, null))
             {
                 if (DateTime.Compare(DateTime.Today, (DateTime)this.ngayNghiViec) >= 0)
                 {
                     this.daNghiViec = true;
                 }
-                else this.daNghiViec = false;
+                else
+                {
+                    this.daNghiViec = false;
+                }
             }
             else
             {
@@ -95,9 +102,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fCMND; }
             set { SetPropertyValue("cmnd", ref fCMND, value); }
         }
-        bool fDaNghiviec = false;
+        bool fDaNghiviec;
         [XafDisplayName("Đã Nghỉ Việc")]
-        [ModelDefault("AllowEdit","false")]
+        [ModelDefault("AllowEdit", "false")]
         public bool daNghiViec
         {
             get { return fDaNghiviec; }
@@ -215,21 +222,6 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 }
             }
         }
-        //public enum DiemDanh
-        //{
-        //    [XafDisplayName("Chưa chấm công")] chua = 0,
-        //    [XafDisplayName("Chấm công thiếu")] thieu = 1,
-        //    [XafDisplayName("Chấm công đủ")] du = 2
-        //}
-        //[XafDisplayName("Tình Trạng Chấm Công")]
-        //public DiemDanh diemDanhNgay
-        //{
-        //    get
-        //    {
-        //        CheckInOut cks = Session.GetObjectByKey<CheckInOut>(new BinaryOperator("NgayCham", DateTime.Now));
-        //        if()
-        //    }
-        //}
         [XafDisplayName("Mức Lương Hiện Tại")]
         [VisibleInListView(false)]
         public double? mucLuongHienTai

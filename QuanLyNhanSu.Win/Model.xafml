@@ -34,10 +34,11 @@
       <Action Id="Unlink" Caption="Loại Bỏ Liên Kết" />
     </Actions>
   </ActionDesign>
-  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List" StartupNavigationItem="NguoiDung_ListView">
+  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List" StartupNavigationItem="MyDetails">
     <Items>
       <Item Id="Default" Caption="Thông Tin Chung" ImageName="Actions_Home" Index="0">
         <Items>
+          <Item Id="@a2dbe3e4-c855-4ba9-a105-1d5c88fd2062" ViewId="CheckInOut_ListView" IsNewNode="True" />
           <Item Id="CheckInOut_ListView" Removed="True" />
           <Item Id="MyDetails" Caption="Thông Tin Đăng Nhập" />
           <Item Id="NgayTinhCong_ListView" Removed="True" />
@@ -130,7 +131,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="CheckInOut_ListView" Criteria="" />
+    <ListView Id="CheckInOut_ListView" Criteria="" DataAccessMode="InstantFeedback" />
     <ListView Id="CheckInOut_LookupListView" Criteria="[gioCong] Is Null" />
     <ListView Id="GioCong_checkInOuts_ListView">
       <Columns>
@@ -595,7 +596,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="NhanVien_ListView" ImageName="BO_Contact" MasterDetailMode="ListViewAndDetailView" DataAccessMode="DataView" MasterDetailView="NhanVien_DetailView_Detail">
+    <ListView Id="NhanVien_ListView" ImageName="BO_Contact" MasterDetailMode="ListViewAndDetailView" DataAccessMode="DataView" Criteria="" MasterDetailView="NhanVien_DetailView_Detail">
       <Columns>
         <ColumnInfo Id="IsChecked" Index="-1" />
         <ColumnInfo Id="soNgayPhepConLai" Index="-1" />

@@ -27,7 +27,21 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         protected override void OnLoaded()
         {
             base.OnLoaded();
+            this.thoiGianVaoCaSaved = this.thoiGianVaoCa;
+            this.thoiGianRaGiuaCaSaved = this.thoiGianRaGiuaCa;
+            this.fThoiGianVaoGiuaCaSaved = this.thoiGianVaoGiuaCa;
+            this.thoiGianTanCaSaved = this.thoiGianTanCa;
             Session.CommitTransaction();
+        }
+        protected override void EndEdit()
+        {
+            base.EndEdit();
+            GioCong.AutoSaveOnEndEdit = true;
+        }
+        protected override void OnChanged(string propertyName, object oldValue, object newValue)
+        {
+            base.OnChanged(propertyName, oldValue, newValue);
+            AutoSaveOnEndEdit = true;
         }
         int fId;
         [Key(true)]
@@ -105,7 +119,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if(!Equals(this.thoiGianRaGiuaCaSaved,null))
+                if(!Equals(this.thoiGianVaoCaSaved,null))
                 {
                     return this.thoiGianVaoCaSaved;
                 }
@@ -127,7 +141,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                             CheckInOut checkIn = thoiGianVaoCas.FirstOrDefault();
                             if (checkIn != null)
                             {
-                                this.thoiGianVaoCaSaved = checkIn.GioCham;
+                                //this.thoiGianVaoCaSaved = checkIn.GioCham;
+                                //Session.CommitTransaction();
+                                //Session.Reload();
                                 return checkIn.GioCham;
                             }
                             else
@@ -176,11 +192,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                         /*Trả Về Lần Quẹt Sớm Nhất*/
                         if (thoiGianRaGiuaCas != null)
                         {
-                            CheckInOut checkIn = thoiGianRaGiuaCas.FirstOrDefault();
+                            CheckInOut checkIn = thoiGianRaGiuaCas.Min();
                             if (checkIn != null)
                             {
-                                this.thoiGianRaGiuaCaSaved = checkIn.GioCham;
+                                //this.thoiGianRaGiuaCaSaved = checkIn.GioCham;
                                 //Session.CommitTransaction();
+                                //Session.Reload();
                                 return checkIn.GioCham;
                             }
                             else
@@ -198,7 +215,6 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                         return null;
                     }
                 }
-                
             }
         }
         [XafDisplayName("Thời Gian Vào Giữa Ca")]
@@ -227,10 +243,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                         }
                         if (thoiGianVaoGiuaCas != null)
                         {
-                            CheckInOut checkIn = thoiGianVaoGiuaCas.LastOrDefault();
+                            CheckInOut checkIn = thoiGianVaoGiuaCas.Max();
                             if (checkIn != null)
                             {
-                                this.thoiGianVaoGiuaCaSaved = checkIn.GioCham;
+                                //this.thoiGianVaoGiuaCaSaved = checkIn.GioCham;
+                                //Session.CommitTransaction();
                                 return checkIn.GioCham;
                             }
                             else
@@ -281,8 +298,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                             CheckInOut checkIn = thoiGianTanCas.LastOrDefault();
                             if (checkIn != null)
                             {
-                                this.thoiGianTanCaSaved = checkIn.GioCham;
-                                Session.CommitTransaction();
+                                //this.thoiGianTanCaSaved = checkIn.GioCham;
+                                //Session.CommitTransaction();
                                 return checkIn.GioCham;
                             }
                             else
