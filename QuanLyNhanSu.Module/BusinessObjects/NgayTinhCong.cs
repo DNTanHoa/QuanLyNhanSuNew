@@ -13,6 +13,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [XafDisplayName("Ngày Tính Công")]
     [Persistent(@"NgayTinhCong")]
+    [XafDefaultProperty("ngayChamCong")]
     [Appearance("IsSunday",BackColor = "olive", FontColor ="white",Context ="ListView", TargetItems ="ngayChamCong", Criteria ="IsSunDay = true")]
     [Appearance("IsHoliday", BackColor = "darkgreen", FontColor = "white", Context = "ListView", TargetItems = "ngayChamCong", Criteria = "IsHoliday = true")]
     public class NgayTinhCong : XPLiteObject
@@ -22,6 +23,14 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             base.AfterConstruction();
         }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+            if(Equals(this.ngayChamCong,null))
+            {
+                this.Delete();
+            }
+        }
         int fId;
         [Key(true)]
         [XafDisplayName("STT")]
@@ -30,9 +39,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fId; }
             set { SetPropertyValue("Id", ref fId, value); }
         }
-        DateTime? fNgayChamCong;
+        DateTime fNgayChamCong;
         [XafDisplayName("Ngày Chấm Công")]
-        public DateTime? ngayChamCong
+        public DateTime ngayChamCong
         {
             get { return fNgayChamCong; }
             set { SetPropertyValue("ngayChamCong", ref fNgayChamCong, value); }

@@ -80,33 +80,35 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fGioCham; }
             set { SetPropertyValue("GioCham", ref fGioCham, value); }
         }
-        int fKieuCham;
-        [XafDisplayName("Kiểu Chấm")]
-        public int KieuCham
+        public enum LoaiGio
         {
-            get { return fKieuCham; }
-            set { SetPropertyValue("KieuCham", ref fKieuCham, value); }
+            [XafDisplayName("Giờ Vào Đầu Ca")] vaodauca = 0,
+            [XafDisplayName("Giờ Ra Giữa Ca")] ragiuaca = 1,
+            [XafDisplayName("Giờ Vào Giữa Ca")] vaogiuaca = 2,
+            [XafDisplayName("Giờ Tan Ca")] tanca = 3
         }
-        int fNguonCham;
-        [XafDisplayName("Nguồn Chấm")]
-        public int NguonCham
+        int? fIdMCC;
+        [XafDisplayName("Số thứ tự máy")]
+        public int? idMCC
         {
-            get { return fNguonCham; }
-            set { SetPropertyValue("NguonCham", ref fNguonCham, value); }
+            get { return fIdMCC; }
+            set { SetPropertyValue("idMCC", ref fIdMCC, value); }
         }
-        int fMaSoMay;
-        [XafDisplayName("Mã Số Máy")]
-        public int MaSoMay
-        {
-            get { return fMaSoMay; }
-            set { SetPropertyValue("MaSoMay", ref fMaSoMay, value); }
-        }
-        string fTenMay;
         [XafDisplayName("Tên Máy")]
         public string TenMay
         {
-            get { return fTenMay; }
-            set { SetPropertyValue("TenMay", ref fTenMay, value); }
+            get
+            {
+                if(!Equals(idMCC,null))
+                {
+                    MayChamCong mayChamCong = Session.GetObjectByKey<MayChamCong>(this.idMCC);
+                    return mayChamCong.tenMCCC;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
         GioCong fgioCong;
         [XafDisplayName("Giờ Công")]

@@ -258,5 +258,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         [Association(@"NhanVien-HopDongLaoDong")]
         [XafDisplayName("Hợp Đồng Lao Động")]
         public XPCollection<HopDongLaoDong> hopDongLaoDongs { get { return GetCollection<HopDongLaoDong>("hopDongLaoDongs"); } }
+        [Association(@"NhanVien-LanXinDiTre")]
+        [XafDisplayName("Lần Xin Đi Trễ")]
+        public XPCollection<LanXinDiTre> lanXinDiTres { get { return GetCollection<LanXinDiTre>("lanXinDiTres"); } }
     }
 }

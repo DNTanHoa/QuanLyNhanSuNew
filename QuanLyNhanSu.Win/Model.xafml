@@ -5,10 +5,10 @@
       <Action Id="About Info" Caption="Về Chúng Tôi" />
       <Action Id="Cancel" Caption="Thoát" />
       <Action Id="CancelAction" Caption="Thoát" />
-      <Action Id="ChangePasswordByUser" Caption="Thay Đổi Mật Khẩu Cá Nhân" />
-      <Action Id="ChooseSkin" Caption="Thay Đổi Giao Diện" />
       <Action Id="Close" Caption="Đóng" />
       <Action Id="CopyCellValue" Caption="Sao Chép Nội Dung Ô" Shortcut="CtrlC" />
+      <Action Id="ChangePasswordByUser" Caption="Thay Đổi Mật Khẩu Cá Nhân" />
+      <Action Id="ChooseSkin" Caption="Thay Đổi Giao Diện" />
       <Action Id="Delete" Caption="Xóa" ConfirmationMessage="Bạn Có Chắc Chắn Muốn Xóa" />
       <Action Id="Delete Item" Caption="Xóa Nội Dung" ConfirmationMessage="Bạn Có Chắc Muốn Xóa?" />
       <Action Id="DeleteDashboard" Caption="Xóa Bảng Thống Kê" />
@@ -52,7 +52,12 @@
       <Item Id="QuanLyChamCong" Caption="Quản LÝ Chấm Công" ImageName="BO_Appearance" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Holidays" Caption="Ngày Lễ" ImageName="ColumnTotalsPosition" ViewId="NgayLe_ListView" IsNewNode="True" />
-          <Item Id="NgayChamCong" Caption="Ngày Chấm Công" ImageName="BO_Appearance" ViewId="NgayTinhCong_ListView" IsNewNode="True" />
+          <Item Id="NgayChamCong" Caption="Bảng Công" ImageName="BO_Appearance" ViewId="" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="BangCongTheoNgay" Caption="Theo Ngày" ImageName="BO_Appearance" ViewId="NgayTinhCong_ListView" Index="1" IsNewNode="True" />
+              <Item Id="TheoThang" Caption="Theo Tháng" ImageName="BO_Appearance" IsNewNode="True" />
+            </Items>
+          </Item>
           <Item Id="ThietBiChamCong" Caption="Thiết Bị Chấm Công" ImageName="BO_Security_Permission_Model" ViewId="MayChamCong_ListView" IsNewNode="True" />
         </Items>
       </Item>
@@ -111,6 +116,45 @@
       </Columns>
     </ListView>
     <ListView Id="CheckInOut_ListView" Criteria="" />
+    <DetailView Id="GioCong_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="18.382352941176471">
+            <LayoutGroup Id="GioCong" Caption="Thông Tin Chấm Công" RelativeSize="100" ImageName="BO_Audit_ChangeHistory">
+              <LayoutGroup Id="GioCong_col1" RelativeSize="49.810844892812106">
+                <LayoutItem Id="nguoiChamCong" RelativeSize="36.363636363636367" Index="0" />
+                <LayoutItem Id="ngay" RelativeSize="27.272727272727273" Index="1" />
+                <LayoutItem Id="soGioTangCa" ViewItem="soGioTangCa" Index="2" RelativeSize="36.363636363636367" IsNewNode="True" />
+                <LayoutItem Id="Id" RelativeSize="36.363636363636367" ShowCaption="False" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="GioCong_col2" RelativeSize="50.189155107187894">
+                <LayoutItem Id="soLanQuet" RelativeSize="36.363636363636367" />
+                <LayoutItem Id="soGioCoBan" RelativeSize="63.636363636363633" />
+                <LayoutItem Id="soGioTangCa" RelativeSize="36.363636363636367" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Auto8195fd96-76e4-4e88-9197-38706f27f2b4" ShowCaption="False" Caption="Auto8195fd96-76e4-4e88-9197-38706f27f2b4(11)" Direction="Horizontal" Index="1" RelativeSize="81.617647058823536" IsNewNode="True">
+            <LayoutGroup Id="checkInOuts" ShowCaption="True" Caption="Lần Chấm Công" TextAlignMode="AlignWithChildren" Index="0" RelativeSize="53.243574051407592" IsNewNode="True">
+              <LayoutItem Id="checkInOuts" TextAlignMode="AutoSize" ViewItem="checkInOuts" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <SplitterItem Id="SplitterItem1" Index="1" RelativeSize="0.73439412484700117" IsNewNode="True" />
+            <LayoutGroup Id="lanTangCas" ShowCaption="True" Caption="Lần Tăng Ca" TextAlignMode="AlignWithChildren" Index="2" RelativeSize="46.022031823745408" IsNewNode="True">
+              <LayoutItem Id="lanTangCas" TextAlignMode="AutoSize" ViewItem="lanTangCas" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="81.17647058823529" Removed="True">
+            <LayoutGroup Id="checkInOuts" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="checkInOuts" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="lanTangCas" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="lanTangCas" TextAlignMode="AutoSize" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="GioCong_ListView" Criteria="" />
     <DetailView Id="HopDongLaoDong_DetailView" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -246,7 +290,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="NgayTinhCong_ListView" ImageName="BO_Appearance" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="NgayTinhCong_ListView" ImageName="BO_Appearance" MasterDetailMode="ListViewAndDetailView">
+      <Columns>
+        <ColumnInfo Id="ngayChamCong" GroupInterval="Month" />
+      </Columns>
+    </ListView>
     <DetailView Id="NhanVien_DetailView" ImageName="BO_Customer" EnableLayoutGroupImages="True">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -343,8 +391,8 @@
       <Items IsNewNode="True">
         <PropertyEditor Id="boPhan" PropertyName="boPhan" IsNewNode="True" />
         <PropertyEditor Id="caLamViec" PropertyName="caLamViec" IsNewNode="True" />
-        <PropertyEditor Id="chucVuNhanVien" PropertyName="chucVuNhanVien" IsNewNode="True" />
         <PropertyEditor Id="cmnd" PropertyName="cmnd" IsNewNode="True" />
+        <PropertyEditor Id="chucVuNhanVien" PropertyName="chucVuNhanVien" IsNewNode="True" />
         <PropertyEditor Id="daNghiViec" PropertyName="daNghiViec" IsNewNode="True" />
         <PropertyEditor Id="dienThoaiLienLac" PropertyName="dienThoaiLienLac" IsNewNode="True" />
         <PropertyEditor Id="email" PropertyName="email" IsNewNode="True" />
@@ -360,8 +408,8 @@
         <PropertyEditor Id="maNhanVien" PropertyName="maNhanVien" IsNewNode="True" />
         <PropertyEditor Id="mucLuongHienTai" PropertyName="mucLuongHienTai" IsNewNode="True" />
         <PropertyEditor Id="ngayNghiViec" PropertyName="ngayNghiViec" IsNewNode="True" />
-        <PropertyEditor Id="thoiGianChamCongs" PropertyName="thoiGianChamCongs" View="NhanVien_thoiGianChamCongs_ListView" IsNewNode="True" />
         <PropertyEditor Id="tinhTrangNv" PropertyName="tinhTrangNv" IsNewNode="True" />
+        <PropertyEditor Id="thoiGianChamCongs" PropertyName="thoiGianChamCongs" View="NhanVien_thoiGianChamCongs_ListView" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
