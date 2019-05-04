@@ -15,9 +15,11 @@ using System.Threading.Tasks;
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [Persistent(@"NhanVien")]
-    [DefaultProperty("hoTen")]
+    [DefaultProperty("TenNhanVien")]
     [XafDisplayName("Nhân Viên")]
-    [Appearance("IsChecked", BackColor = "red", FontColor = "white", Context = "ListView", TargetItems = "hoTen", Criteria = "IsChecked = false")]
+    [Appearance("IsChecked", BackColor = "red", FontColor = "white", Context = "ListView", TargetItems = "TenNhanVien", Criteria = "IsChecked = false")]
+    [Appearance("daNghiViec", BackColor = "#565947", FontColor = "white", Context = "ListView", TargetItems = "TenNhanVien", Criteria = "daNghiViec = true")]
+
     public class NhanVien:XPLiteObject
     {
         public NhanVien(Session session):base(session)
@@ -33,7 +35,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             base.OnChanged(propertyName, oldValue, newValue);
             if(!Equals(this.ngayNghiViec, null))
             {
-                this.daNghiViec = true;
+                if (DateTime.Compare(DateTime.Today, (DateTime)this.ngayNghiViec) >= 0)
+                {
+                    this.daNghiViec = true;
+                }
+                else this.daNghiViec = false;
             }
             else
             {
@@ -48,12 +54,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fId; }
             set { SetPropertyValue("Id", ref fId, value); }
         }
-        string fHoTen;
+        string fTenNhanVien;
         [XafDisplayName("Họ Và Tên")]
-        public string hoTen
+        public string TenNhanVien
         {
-            get { return fHoTen;}
-            set { SetPropertyValue("hoTen", ref fHoTen, value); }
+            get { return fTenNhanVien;}
+            set { SetPropertyValue("TenNhanVien", ref fTenNhanVien, value); }
         }
         string fMaNhanVien;
         [XafDisplayName("Mã Nhân Viên")]
@@ -84,10 +90,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fCMND; }
             set { SetPropertyValue("cmnd", ref fCMND, value); }
         }
-        bool? fDaNghiviec;
+        bool fDaNghiviec = false;
         [XafDisplayName("Đã Nghỉ Việc")]
         [ModelDefault("AllowEdit","false")]
-        public bool? daNghiViec
+        public bool daNghiViec
         {
             get { return fDaNghiviec; }
             set { SetPropertyValue("daNghiViec",ref fDaNghiviec, value); }
@@ -174,7 +180,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if ((bool)this.daNghiViec)
+                if ((bool)this.daNghiViec == true)
                 {
                     return TinhTrangNhanVien.nghiviec;
                 }
@@ -234,6 +240,34 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 {
                     return null;
                 }
+            }
+        }
+        [XafDisplayName("Số Ngày Phép Còn Lại")]
+        public double soNgayPhepConLai
+        {
+            get
+            {
+                double soNgay = 0;
+                double soNgayNghi = 0;
+                foreach(HopDongLaoDong hd in hopDongLaoDongs)
+                {
+                    if(hd.tinhTrang == HopDongLaoDong.TinhTrangHopDong.dangcohieuluc)
+                    {
+                        foreach(LanNghiPhep nghiPhep in lanNghiPheps)
+                        {
+                            if(!Equals(nghiPhep.ngayDuyet, null)||!Equals(nghiPhep.ngayBGDDuyet, null))
+                            {
+                                soNgayNghi += nghiPhep.soNgayNghi;
+                            }
+                        }
+                        soNgay = hd.loaiHopDong.soNgayNghiPhep - soNgayNghi;
+                        if(soNgay < 0)
+                        {
+                            soNgay = 0;
+                        }
+                    }
+                }
+                return soNgay;
             }
         }
         string fGhiChu;

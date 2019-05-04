@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="BoPhan_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="NhanViens_Group" TextAlignMode="AlignWithChildren" Direction="Vertical" RelativeSize="81.975736568457535" ImageName="BO_Department">
+            <LayoutItem Id="NhanViens" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="LanNghiPhep_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="LanNghiPhep">
+              <LayoutGroup Id="LanNghiPhep_col2">
+                <LayoutItem Id="nghiCoPhep" ViewItem="nghiCoPhep" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

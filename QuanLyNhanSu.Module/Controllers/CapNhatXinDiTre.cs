@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -19,9 +18,9 @@ using QuanLyNhanSu.Module.BusinessObjects;
 namespace QuanLyNhanSu.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
-    public partial class CapNhatNgayCong : ViewController
+    public partial class CapNhatXinDiTre : ViewController
     {
-        public CapNhatNgayCong()
+        public CapNhatXinDiTre()
         {
             InitializeComponent();
             // Target required Views (via the TargetXXX properties) and create their Actions.
@@ -29,28 +28,19 @@ namespace QuanLyNhanSu.Module.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            int soNgayChuaCapNhat = 0;
-            /*Tìm ngày cuối cùng lúc trước khi cập nhật*/
-            CriteriaOperator criteria = new BinaryOperator("Id", new JoinOperand("NgayTinhCong", null, Aggregate.Max, new OperandProperty("Id")));
-            var ngayTinhCongs = (NgayTinhCong)ObjectSpace.FindObject<NgayTinhCong>(criteria);
-            DateTime ngayCuoiCung = ngayTinhCongs.ngayChamCong;
-
-            soNgayChuaCapNhat = (int)(DateTime.Today - ngayCuoiCung).TotalDays;
-
-            if(!Equals(soNgayChuaCapNhat, 0))
+            string condition = CriteriaOperator.And(CriteriaOperator.Parse("[ngayDuyet] Is Null")).ToString();
+            CriteriaOperator criteria = CriteriaOperator.Parse(condition);
+            IList<LanXinDiTre> lanXinDiTres = ObjectSpace.GetObjects<LanXinDiTre>(criteria);
+            foreach (LanXinDiTre lanXinDiTre in lanXinDiTres)
             {
-                for(int i = 1; i <= soNgayChuaCapNhat; i++)
-                {
-                    NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
-                    ngayTinhCong.ngayChamCong = ngayCuoiCung.AddDays(i);
-                    var nhanViens = ObjectSpace.GetObjects<NhanVien>(new BinaryOperator("daNghiViec", false));
-                    foreach (NhanVien nhanVien in nhanViens)
-                    {
-                        GioCong gioCong = ObjectSpace.CreateObject<GioCong>();
-                        gioCong.nguoiChamCong = nhanVien;
-                        gioCong.ngay = ngayTinhCong;
-                    }
-                }
+                CriteriaOperator criteriaOperator = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong] = ?", lanXinDiTre.nguoiTaoPhieu), CriteriaOperator.Parse("[ngay.ngayChamCong] = ?", lanXinDiTre.ngayXinPhep));
+                GioCong gio = ObjectSpace.FindObject<GioCong>(criteriaOperator);
+                //if (!Equals(gio, null))
+                //{
+                //    gio.soLanDiTre = gio.soLanDiTre - 1;
+                //}
+
+                lanXinDiTre.gioCong = gio;
             }
             ObjectSpace.CommitChanges();
             ObjectSpace.Refresh();
@@ -59,11 +49,11 @@ namespace QuanLyNhanSu.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            
+            // Access and customize the target View control.
         }
         protected override void OnDeactivated()
         {
-            
+            // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
     }

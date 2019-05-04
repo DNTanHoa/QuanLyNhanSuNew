@@ -48,6 +48,13 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fThoiHanHopDong; }
             set { SetPropertyValue("thoiHanHopDong", ref fThoiHanHopDong, value); }
         }
+        int fSoNgayNghiPhep;
+        [XafDisplayName("Số Ngày Nghỉ Phép Trong Năm")]
+        public int soNgayNghiPhep
+        {
+            get { return fSoNgayNghiPhep; }
+            set { SetPropertyValue("soNgayNghiPhep", ref fSoNgayNghiPhep, value); }
+        }
         string fGhiChu;
         [XafDisplayName("Ghi Chú")]
         public string ghiChu

@@ -34,6 +34,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         int fId;
         [Key(true)]
         [XafDisplayName("STT")]
+        [Persistent("Id")]
         public int Id
         {
             get { return fId; }
@@ -96,6 +97,14 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                     return null;
                 }
             }
+        }
+        ThangChamCong fthangChamCong;
+        [Association(@"ThangChamCong-NgayTinhCongs")]
+        [XafDisplayName("Tháng Chấm Công")]
+        public ThangChamCong thangChamCong
+        {
+            get { return fthangChamCong; }
+            set { SetPropertyValue("thangChamCong", ref fthangChamCong, value); }
         }
         [Association(@"NgayChamCong-GioCong")]
         [XafDisplayName("Giờ Công Nhân Viên")]
