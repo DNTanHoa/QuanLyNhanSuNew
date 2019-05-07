@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            // 
+            // CapNhatXinDiTre
+            // 
+            this.TargetViewId = "NguoiDung_ListView";
+
         }
 
         #endregion

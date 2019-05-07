@@ -167,6 +167,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\CapNhatGioCong.resx">
+      <DependentUpon>CapNhatGioCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatLanTangCa.resx">
+      <DependentUpon>CapNhatLanTangCa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatNgayCong.resx">
+      <DependentUpon>CapNhatNgayCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatThangChamCong.resx">
+      <DependentUpon>CapNhatThangChamCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatXinDiTre.resx">
+      <DependentUpon>CapNhatXinDiTre.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\DuyetNghi.resx">
       <DependentUpon>DuyetNghi.cs</DependentUpon>
     </EmbeddedResource>

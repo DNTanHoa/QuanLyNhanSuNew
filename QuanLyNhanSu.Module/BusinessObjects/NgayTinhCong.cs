@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
+    [DefaultClassOptions]
     [XafDisplayName("Ngày Tính Công")]
     [Persistent(@"NgayTinhCong")]
     [XafDefaultProperty("ngayChamCong")]
@@ -42,6 +44,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         DateTime fNgayChamCong;
         [XafDisplayName("Ngày Chấm Công")]
+        [ModelDefault("AllowEdit", "false")]
+        [ModelDefault("DisplayFormat", "{0:dd/MM/yyyy}")]
+        [ModelDefault("EditMask", "dd/MM/yyyy")]
         public DateTime ngayChamCong
         {
             get { return fNgayChamCong; }
@@ -99,8 +104,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             }
         }
         ThangChamCong fthangChamCong;
-        [Association(@"ThangChamCong-NgayTinhCongs")]
         [XafDisplayName("Tháng Chấm Công")]
+        [Association(@"ThangChamCong-NgayTinhCongs")]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
         public ThangChamCong thangChamCong
         {
             get { return fthangChamCong; }

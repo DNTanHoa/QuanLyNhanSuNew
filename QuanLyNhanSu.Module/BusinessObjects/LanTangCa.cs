@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
-    [DefaultClassOptions]
     [Persistent(@"LanTangCa")]
     [XafDisplayName("Lần Tăng Ca")]
     [Appearance("ngayDuyet", BackColor = "red", FontColor = "white", Context = "ListView", TargetItems = "nguoiTangCa", Criteria = "ngayDuyet = null")]

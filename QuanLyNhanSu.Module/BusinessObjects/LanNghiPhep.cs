@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
-    [DefaultClassOptions]
     [Persistent(@"LanNghiPhep")]
     [XafDisplayName("Lần Nghỉ Phép")]
     public class LanNghiPhep:XPLiteObject

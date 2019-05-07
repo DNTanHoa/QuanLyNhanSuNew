@@ -5,7 +5,6 @@ using DevExpress.Persistent.Base;
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [XafDefaultProperty("tenLoaiTangCa")]
-    [DefaultClassOptions]
     [Persistent(@"LoaiTangCa")]
     [XafDisplayName("Loại Tăng Ca")]
     public class LoaiTangCa : XPLiteObject

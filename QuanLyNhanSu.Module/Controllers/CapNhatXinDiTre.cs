@@ -37,7 +37,8 @@ namespace QuanLyNhanSu.Module.Controllers
                 GioCong gio = ObjectSpace.FindObject<GioCong>(criteriaOperator);
                 //if (!Equals(gio, null))
                 //{
-                //    gio.soLanDiTre = gio.soLanDiTre - 1;
+                //    //gio.soLanDiTre -= 1;
+                //    //gio.soLanDiTre = gio.soLanDiTre - 1;
                 //}
 
                 lanXinDiTre.gioCong = gio;

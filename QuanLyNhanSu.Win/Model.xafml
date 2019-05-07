@@ -34,14 +34,16 @@
       <Action Id="Unlink" Caption="Loại Bỏ Liên Kết" />
     </Actions>
   </ActionDesign>
-  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List">
+  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List" StartupNavigationItem="NguoiDung_ListView">
     <Items>
       <Item Id="Default" Caption="Thông Tin Chung" ImageName="Actions_Home" Index="0">
         <Items>
+          <Item Id="CheckInOut_ListView" Removed="True" />
           <Item Id="MyDetails" Caption="Thông Tin Đăng Nhập" />
+          <Item Id="NgayTinhCong_ListView" Removed="True" />
         </Items>
       </Item>
-      <Item Id="QuanLyNhanVien" Index="2" Caption="Quản Lý Nhân Viên" ImageName="BO_Customer" IsNewNode="True">
+      <Item Id="QuanLyNhanVien" Index="1" Caption="Quản Lý Nhân Viên" ImageName="BO_Customer" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="DanhSachNhanVien" Caption="Danh Sách Nhân Viên" ImageName="BO_Contact" Index="0" ViewId="NhanVien_ListView" IsNewNode="True" />
           <Item Id="DanhSachBoPhan" Index="1" Caption="Danh Sách Bộ Phận" ImageName="BO_WorkflowDefinition" ViewId="BoPhan_ListView" IsNewNode="True" />
@@ -49,22 +51,17 @@
           <Item Id="DanhSachCaLamViec" Index="3" Caption="Danh Sách Ca Làm Việc" ImageName="ModelEditor_Action_Schema" ViewId="CaLamViec_ListView" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="QuanLyChamCong" Caption="Quản LÝ Chấm Công" ImageName="BO_Appearance" IsNewNode="True">
-        <Items IsNewNode="True">
-          <Item Id="Holidays" Caption="Ngày Lễ" ImageName="ColumnTotalsPosition" ViewId="NgayLe_ListView" IsNewNode="True" />
-          <Item Id="NgayChamCong" Caption="Bảng Công" ImageName="BO_Appearance" ViewId="" IsNewNode="True">
-            <Items IsNewNode="True">
-              <Item Id="BangCongTheoNgay" Caption="Theo Ngày" ImageName="BO_Appearance" ViewId="NgayTinhCong_ListView" Index="1" IsNewNode="True" />
-              <Item Id="TheoThang" Caption="Theo Tháng" ImageName="BO_Appearance" IsNewNode="True" />
-            </Items>
-          </Item>
-          <Item Id="ThietBiChamCong" Caption="Thiết Bị Chấm Công" ImageName="BO_Security_Permission_Model" ViewId="MayChamCong_ListView" IsNewNode="True" />
-        </Items>
-      </Item>
-      <Item Id="QuanLyHoSo" Caption="Quản Lý Hồ Sơ" ImageName="BO_Report" IsNewNode="True">
+      <Item Id="QuanLyHoSo" Caption="Quản Lý Hồ Sơ" ImageName="BO_Report" Index="2" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="CacLoaiHopDong" Caption="Các Loại Hợp Đồng" ImageName="BO_KPI_Scorecard" ViewId="LoaiHopDong_ListView" IsNewNode="True" />
           <Item Id="HopDongNhanVien" Caption="Hợp Đồng Nhân Viên" ImageName="BO_WorkflowDefinition" ViewId="HopDongLaoDong_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="QuanLyChamCong" Caption="Quản Lý Chấm Công" ImageName="BO_Appearance" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Holidays" Caption="Ngày Lễ" ImageName="ColumnTotalsPosition" ViewId="NgayLe_ListView" IsNewNode="True" />
+          <Item Id="NgayChamCong" Caption="Bảng Công" ImageName="BO_Appearance" ViewId="ThangChamCong_ListView" IsNewNode="True" />
+          <Item Id="ThietBiChamCong" Caption="Thiết Bị Chấm Công" ImageName="BO_Security_Permission_Model" ViewId="MayChamCong_ListView" IsNewNode="True" />
         </Items>
       </Item>
     </Items>
@@ -437,6 +434,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="NgayTinhCong_gioCongs_ListView" DataAccessMode="Client" />
     <ListView Id="NgayTinhCong_ListView" ImageName="BO_Appearance" MasterDetailMode="ListViewAndDetailView" Criteria="">
       <Columns>
         <ColumnInfo Id="ngayChamCong" GroupInterval="Month" />
@@ -597,7 +595,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="NhanVien_ListView" ImageName="BO_Contact" MasterDetailMode="ListViewAndDetailView" MasterDetailView="NhanVien_DetailView_Detail">
+    <ListView Id="NhanVien_ListView" ImageName="BO_Contact" MasterDetailMode="ListViewAndDetailView" DataAccessMode="DataView" MasterDetailView="NhanVien_DetailView_Detail">
       <Columns>
         <ColumnInfo Id="IsChecked" Index="-1" />
         <ColumnInfo Id="soNgayPhepConLai" Index="-1" />
@@ -612,5 +610,46 @@
         <ColumnInfo Id="ngayNghiViec" Removed="True" />
       </Columns>
     </ListView>
+    <DetailView Id="ThangChamCong_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ThangChamCong" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="Auto7939ce33-9578-49c2-accc-73074abbc3a3" ShowCaption="False" Caption="Auto7939ce33-9578-49c2-accc-73074abbc3a3(4)" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="ngayCapNhat" ViewItem="ngayCapNhat" Index="0" RelativeSize="4.5197740112994351" IsNewNode="True" />
+                <LayoutItem Id="thangChamCong" ViewItem="thangChamCong" Index="1" RelativeSize="3.3898305084745761" IsNewNode="True" />
+                <LayoutGroup Id="Auto735e0756-cdb3-42d7-b8eb-cea4f14c97e4" ShowCaption="False" Caption="Auto735e0756-cdb3-42d7-b8eb-cea4f14c97e4(7)" Direction="Horizontal" Index="2" RelativeSize="5.0847457627118642" IsNewNode="True">
+                  <LayoutItem Id="soNgayLamViec" ViewItem="soNgayLamViec" Index="0" RelativeSize="33.7465564738292" IsNewNode="True" />
+                  <LayoutItem Id="soNgayChuNhat" ViewItem="soNgayChuNhat" Index="1" RelativeSize="32.644628099173552" IsNewNode="True" />
+                  <LayoutItem Id="soNgayLe" ViewItem="soNgayLe" Index="2" RelativeSize="33.608815426997246" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" TextAlignMode="AlignWithChildren" Index="3" RelativeSize="87.005649717514117" Caption="Ngày Chấm Công" IsNewNode="True">
+                  <LayoutItem Id="ngayTinhCongs" ViewItem="ngayTinhCongs" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="ThangChamCong_col1" Index="1" RelativeSize="19.915254237288135" Caption="ThangChamCong_col1" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="boPhan" Index="0" RelativeSize="19.148936170212767" Removed="True" />
+                <LayoutItem Id="ngayCapNhat" Index="0" RelativeSize="63.829787234042556" Removed="True" />
+                <LayoutItem Id="thangChamCong" Index="0" RelativeSize="100" Removed="True" />
+                <LayoutItem Id="Id" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ThangChamCong_col2" Index="1" RelativeSize="39.971751412429377" Caption="ThangChamCong_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="soNgayChuNhat" RelativeSize="65.7243816254417" Index="0" Removed="True" />
+                <LayoutItem Id="soNgayLe" RelativeSize="100" Index="0" Removed="True" />
+                <LayoutItem Id="soNgayLamViec" RelativeSize="33.215547703180214" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ThangChamCong_ListView" Criteria="" MasterDetailMode="ListViewAndDetailView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="boPhan" Index="-1" />
+        <ColumnInfo Id="ngayCapNhat" Index="-1" />
+        <ColumnInfo Id="thangChamCong" Index="0" />
+      </Columns>
+    </ListView>
+    <ListView Id="ThangChamCong_ngayTinhCongs_ListView" MasterDetailMode="ListViewAndDetailView" DataAccessMode="DataView" />
   </Views>
 </Application>

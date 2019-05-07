@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
-    [DefaultClassOptions]
     [Persistent(@"LanXinDiTre")]
     [XafDisplayName("Phiếu Xin Đi Trễ - Về Sớm")]
     public class LanXinDiTre:XPLiteObject

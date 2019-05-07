@@ -32,7 +32,7 @@ namespace QuanLyNhanSu.Module.Controllers
             CriteriaOperator criteria = CriteriaOperator.Parse(condition);
             IList<LanTangCa> lanTangCas = ObjectSpace.GetObjects<LanTangCa>(criteria);
             Console.WriteLine("Cap nhat lan tang ca");
-            foreach(LanTangCa lanTangCa in lanTangCas)
+            foreach (LanTangCa lanTangCa in lanTangCas)
             {
                 CriteriaOperator criteriaOperator = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong] = ?", lanTangCa.nguoiTangCa), CriteriaOperator.Parse("[ngay.ngayChamCong] = ?", lanTangCa.ngayTangCa));
                 GioCong gio = ObjectSpace.FindObject<GioCong>(criteriaOperator);

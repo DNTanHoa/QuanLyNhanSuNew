@@ -30,6 +30,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             base.AfterConstruction();
         }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+
+        }
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
             base.OnChanged(propertyName, oldValue, newValue);
