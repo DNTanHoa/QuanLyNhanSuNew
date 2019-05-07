@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -12,6 +13,8 @@ using System.Threading.Tasks;
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [Persistent(@"LanTangCa")]
+    [XafDisplayName("Lần Tăng Ca")]
+    [Appearance("ngayDuyet", BackColor = "red", FontColor = "white", Context = "ListView", TargetItems = "nguoiTangCa", Criteria = "ngayDuyet = null")]
     public class LanTangCa:XPLiteObject
     {
         public LanTangCa(Session session) : base(session) { }
@@ -37,8 +40,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         DateTime fNgayTangCa;
         [XafDisplayName("Ngày Tăng Ca")]
-        [ModelDefault("DisplayFormat","{0:dd/mm/yyyy}")]
-        [ModelDefault("EditMask", "dd/mm/yyyy")]
+        [ModelDefault("DisplayFormat","{0:dd/MM/yyyy}")]
+        [ModelDefault("EditMask", "dd/MM/yyyy")]
         public DateTime ngayTangCa
         {
             get { return fNgayTangCa; }
@@ -52,7 +55,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             set { SetPropertyValue("loaiTangCa", ref fLoaiTangCa, value); }
         }
         [XafDisplayName("Hệ Số Nhân Giờ")]
-        public int heSoNhanGio
+        public double heSoNhanGio
         {
             get
             {
@@ -84,19 +87,34 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fThoiGianKetThuc; }
             set { SetPropertyValue("thoiGianKetThuc", ref fThoiGianKetThuc, value); }
         }
-        NhanVien fNguoiDuyet;
+        NguoiDung fNguoiDuyet;
         [XafDisplayName("Người Duyệt")]
-        public NhanVien nguoiDuyet
+        public NguoiDung nguoiDuyet
         {
             get { return fNguoiDuyet; }
             set { SetPropertyValue("nguoiDuyet", ref fNguoiDuyet, value); }
         }
-        DateTime fNgayDuyet;
+        DateTime? fNgayDuyet;
         [XafDisplayName("Ngày Duyệt")]
-        public DateTime ngayDuyet
+        public DateTime? ngayDuyet
         {
             get { return fNgayDuyet; }
             set { SetPropertyValue("ngayDuyet", ref fNgayDuyet, value); }
+        }
+        [XafDisplayName("Tổng Thời Gian Tăng Ca")]
+        public double thoiGianTangCa
+        {
+            get
+            {
+                double thoiGian = 0;
+                TimeSpan tongThoiGian = TimeSpan.Zero;
+                if(!Equals(this.thoiGianKetThuc, null))
+                {
+                    tongThoiGian = this.thoiGianKetThuc - this.thoiGianBatDau;
+                    thoiGian = (tongThoiGian.TotalMinutes / 60) * this.heSoNhanGio;
+                }
+                return thoiGian;
+            }
         }
         string fGhiChu;
         [XafDisplayName("Ghi Chú")]
@@ -106,31 +124,13 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             set { SetPropertyValue("ghiChu", ref fGhiChu, value); }
         }
         GioCong fgioCong;
+        [XafDisplayName("Giờ Công")]
         [VisibleInListView(false)]
         [VisibleInDetailView(false)]
         [Association(@"GiocCong-LanTangCa")]
         public GioCong gioCong
         {
-            get
-            {
-                if(!Equals(this.ngayDuyet,null))
-                {
-                    CriteriaOperator criteria = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong] = ?", this.nguoiTangCa), CriteriaOperator.Parse("[ngay.ngayChamCong] = ?", this.ngayDuyet));
-                    GioCong gioCong = Session.FindObject<GioCong>(criteria);
-                    if (!Equals(gioCong))
-                    {
-                        return gioCong;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            get { return fgioCong; }
             set { SetPropertyValue("gioCong", ref fgioCong, value); }
         }
     }

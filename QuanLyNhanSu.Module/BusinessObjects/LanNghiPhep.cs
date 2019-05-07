@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+            this.soNgayNghi = 1;
         }
         int fId;
         [Key(true)]
@@ -48,24 +50,47 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         public DateTime? ngayNghi
         {
             get { return fNgayNghi; }
-            set { SetPropertyValue("fNgayNghi", ref fNgayTaoDonXin, value); }
+            set { SetPropertyValue("ngayNghi", ref fNgayNghi, value); }
         }
-        NhanVien fNguoiDuyet;
+        double fSoNgayNghi;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [XafDisplayName("Số Ngày Xin Nghỉ")]
+        public double soNgayNghi
+        {
+            get { return fSoNgayNghi; }
+            set { SetPropertyValue("soNgayNghi", ref fSoNgayNghi, value); }
+        }
+        NguoiDung fNguoiDuyet;
         [XafDisplayName("Người Duyệt")]
-        public NhanVien nguoiDuyet
+        public NguoiDung nguoiDuyet
         {
             get { return fNguoiDuyet; }
             set { SetPropertyValue("nguoiDuyet", ref fNguoiDuyet, value); }
         }
-        DateTime fNgayDuyet;
+        DateTime? fNgayDuyet;
         [XafDisplayName("Ngày Duyệt")]
-        public DateTime ngayDuyet
+        public DateTime? ngayDuyet
         {
             get { return fNgayDuyet; }
             set { SetPropertyValue("ngayDuyet", ref fNgayDuyet, value); }
         }
+        NguoiDung fDuyetBGD;
+        [XafDisplayName("Ban Giám Đốc")]
+        public NguoiDung duyetBGD
+        {
+            get { return fDuyetBGD; }
+            set { SetPropertyValue("duyetBGD", ref fDuyetBGD, value); }
+        }
+        DateTime? fNgayBGDDuyet;
+        [XafDisplayName("Ngày Ban Giám Đốc Duyệt")]
+        public DateTime? ngayBGDDuyet
+        {
+            get { return fNgayBGDDuyet; }
+            set { SetPropertyValue("ngayBGDDuyet", ref fNgayBGDDuyet, value); }
+        }
         string fGhiChu;
-        [XafDisplayName("Ghi Chú")]
+        [XafDisplayName("Lý Do")]
         public string ghiChu
         {
             get { return fGhiChu; }

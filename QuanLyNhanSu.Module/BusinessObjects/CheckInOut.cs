@@ -31,12 +31,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         protected override void OnLoaded()
         {
             base.OnLoaded();
-            if (!Equals(this.nguoiChamCong, null))
-            {
-                NhanVien nhanVien = Session.FindObject<NhanVien>(new BinaryOperator("MaChamCong", this.MaChamCong));
-                this.nguoiChamCong = nhanVien;
-                Session.CommitTransaction();
-            }
+            //if (!Equals(this.MaChamCong, null) && (Equals(this.nguoiChamCong,null)))
+            //{
+            //    NhanVien nhanVien = Session.FindObject<NhanVien>(new BinaryOperator("MaChamCong", this.MaChamCong));
+            //    this.nguoiChamCong = nhanVien;
+            //    Session.CommitTransaction();
+            //}
         }
         int fId;
         [Key(true)]
@@ -66,9 +66,14 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         DateTime fNgayCham;
         [XafDisplayName("Ngày Chấm")]
+        [ModelDefault("DisplayFormat", "{0:dd/MM/yyyy}")]
+        [ModelDefault("EditMask", "dd/MM/yyyy")]
         public DateTime NgayCham
         {
-            get { return fNgayCham; }
+            get
+            {
+                return fNgayCham;
+            }
             set { SetPropertyValue("NgayCham", ref fNgayCham, value); }
         }
         DateTime fGioCham;
@@ -77,7 +82,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         [ModelDefault("EditMask", "HH:mm")]
         public DateTime GioCham
         {
-            get { return fGioCham; }
+            get
+            {
+                return fGioCham;
+            }
             set { SetPropertyValue("GioCham", ref fGioCham, value); }
         }
         public enum LoaiGio

@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
+    [DefaultClassOptions]
     [XafDisplayName("Ngày Tính Công")]
     [Persistent(@"NgayTinhCong")]
     [XafDefaultProperty("ngayChamCong")]
@@ -34,6 +36,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         int fId;
         [Key(true)]
         [XafDisplayName("STT")]
+        [Persistent("Id")]
         public int Id
         {
             get { return fId; }
@@ -41,6 +44,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         DateTime fNgayChamCong;
         [XafDisplayName("Ngày Chấm Công")]
+        [ModelDefault("AllowEdit", "false")]
+        [ModelDefault("DisplayFormat", "{0:dd/MM/yyyy}")]
+        [ModelDefault("EditMask", "dd/MM/yyyy")]
         public DateTime ngayChamCong
         {
             get { return fNgayChamCong; }
@@ -96,6 +102,16 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                     return null;
                 }
             }
+        }
+        ThangChamCong fthangChamCong;
+        [XafDisplayName("Tháng Chấm Công")]
+        [Association(@"ThangChamCong-NgayTinhCongs")]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public ThangChamCong thangChamCong
+        {
+            get { return fthangChamCong; }
+            set { SetPropertyValue("thangChamCong", ref fthangChamCong, value); }
         }
         [Association(@"NgayChamCong-GioCong")]
         [XafDisplayName("Giờ Công Nhân Viên")]

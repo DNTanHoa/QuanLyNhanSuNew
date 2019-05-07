@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -23,27 +24,68 @@ namespace QuanLyNhanSu.Module.Controllers
         public CapNhatNgayCong()
         {
             InitializeComponent();
+            //TargetViewId = "Any";
+            //TargetViewType = ViewType.Any;
             // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         protected override void OnActivated()
         {
             base.OnActivated();
-            NgayTinhCong ngayTinh = ObjectSpace.FindObject<NgayTinhCong>(new BinaryOperator("ngayChamCong",DateTime.Today));
-            if (Equals(ngayTinh, null))
+            int soNgayChuaCapNhat = 0;
+            /*Tìm ngày cuối cùng lúc trước khi cập nhật*/
+            CriteriaOperator criteria = new BinaryOperator("Id", new JoinOperand("NgayTinhCong", null, Aggregate.Max, new OperandProperty("Id")));
+            var ngayTinhCongs = (NgayTinhCong)ObjectSpace.FindObject<NgayTinhCong>(criteria);
+            if (Equals(ngayTinhCongs, null))
             {
                 NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
-                ngayTinhCong.ngayChamCong = DateTime.Today;
-                var nhanViens = ObjectSpace.GetObjects<NhanVien>(new BinaryOperator("daNghiViec", false));
-                foreach(NhanVien nhanVien in nhanViens)
+                ngayTinhCong.ngayChamCong = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>();// new BinaryOperator("daNghiViec", false));
+                Console.WriteLine("Danh sach nhan vien");
+                Console.WriteLine(nhanViens);
+                if (Equals(nhanViens, null))
                 {
-                    GioCong gioCong = ObjectSpace.CreateObject<GioCong>();
-                    gioCong.nguoiChamCong = nhanVien;
-                    gioCong.ngay = ngayTinhCong;
+                    MessageBox.Show("Khong co nhan vien");
                 }
-                ObjectSpace.CommitChanges();
-                ObjectSpace.Refresh();
-                View.Refresh();
-            }   
+                else
+                {
+                    foreach (NhanVien nhanVien in nhanViens)
+                    {
+                        GioCong gioCong = ObjectSpace.CreateObject<GioCong>();
+                        gioCong.nguoiChamCong = nhanVien;
+                        gioCong.ngay = ngayTinhCong;
+                    }
+                    ObjectSpace.CommitChanges();
+                    //ObjectSpace.Refresh();
+                    //View.Refresh();
+                }
+            }
+            else
+            {
+                DateTime ngayCuoiCung = ngayTinhCongs.ngayChamCong;
+
+                soNgayChuaCapNhat = (int)(DateTime.Today - ngayCuoiCung).TotalDays;
+
+                if (!Equals(soNgayChuaCapNhat, 0))
+                {
+                    for (int i = 1; i <= soNgayChuaCapNhat; i++)
+                    {
+                        NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
+                        ngayTinhCong.ngayChamCong = ngayCuoiCung.AddDays(i);
+                        IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>();//new BinaryOperator("daNghiViec", false));
+                        foreach (NhanVien nhanVien in nhanViens)
+                        {
+                            GioCong gioCong = ObjectSpace.CreateObject<GioCong>();
+                            gioCong.nguoiChamCong = nhanVien;
+                            gioCong.ngay = ngayTinhCong;
+                        }
+                    }
+                    ObjectSpace.CommitChanges();
+                    //ObjectSpace.Refresh();
+                    //View.Refresh();
+                }
+            }
+            
+            
         }
         protected override void OnViewControlsCreated()
         {

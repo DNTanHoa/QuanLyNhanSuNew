@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanSu.Module.Controllers
 {
-    partial class CapNhatGioCong
+    partial class CapNhatXinDiTre
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             // 
-            // CapNhatGioCong
+            // CapNhatXinDiTre
             // 
             this.TargetViewId = "NguoiDung_ListView";
 

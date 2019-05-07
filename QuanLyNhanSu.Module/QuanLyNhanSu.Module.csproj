@@ -89,6 +89,7 @@
     <Reference Include="System.Drawing">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -113,17 +114,48 @@
     <Compile Include="BusinessObjects\NgayTinhCong.cs" />
     <Compile Include="BusinessObjects\NguoiDung.cs" />
     <Compile Include="BusinessObjects\NhanVien.cs" />
+    <Compile Include="BusinessObjects\ThangChamCong.cs" />
     <Compile Include="Controllers\CapNhatGioCong.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CapNhatGioCong.Designer.cs">
       <DependentUpon>CapNhatGioCong.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CapNhatLanTangCa.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CapNhatLanTangCa.Designer.cs">
+      <DependentUpon>CapNhatLanTangCa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CapNhatNgayCong.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CapNhatNgayCong.Designer.cs">
       <DependentUpon>CapNhatNgayCong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CapNhatThangChamCong.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CapNhatThangChamCong.Designer.cs">
+      <DependentUpon>CapNhatThangChamCong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CapNhatXinDiTre.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CapNhatXinDiTre.Designer.cs">
+      <DependentUpon>CapNhatXinDiTre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DuyetNghi.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\DuyetNghi.Designer.cs">
+      <DependentUpon>DuyetNghi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DuyetTangCa.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\DuyetTangCa.Designer.cs">
+      <DependentUpon>DuyetTangCa.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Module.cs">
@@ -135,6 +167,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\CapNhatGioCong.resx">
+      <DependentUpon>CapNhatGioCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatLanTangCa.resx">
+      <DependentUpon>CapNhatLanTangCa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatNgayCong.resx">
+      <DependentUpon>CapNhatNgayCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatThangChamCong.resx">
+      <DependentUpon>CapNhatThangChamCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CapNhatXinDiTre.resx">
+      <DependentUpon>CapNhatXinDiTre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\DuyetNghi.resx">
+      <DependentUpon>DuyetNghi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\DuyetTangCa.resx">
+      <DependentUpon>DuyetTangCa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Module.resx">
       <SubType>Designer</SubType>

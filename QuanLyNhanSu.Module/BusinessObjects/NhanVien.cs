@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.ConditionalAppearance;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -14,8 +15,11 @@ using System.Threading.Tasks;
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
     [Persistent(@"NhanVien")]
-    [DefaultProperty("hoTen")]
+    [DefaultProperty("TenNhanVien")]
     [XafDisplayName("Nhân Viên")]
+    [Appearance("IsChecked", BackColor = "red", FontColor = "white", Context = "ListView", TargetItems = "TenNhanVien", Criteria = "IsChecked = false")]
+    [Appearance("daNghiViec", BackColor = "#565947", FontColor = "white", Context = "ListView", TargetItems = "TenNhanVien", Criteria = "daNghiViec = true")]
+
     public class NhanVien:XPLiteObject
     {
         public NhanVien(Session session):base(session)
@@ -26,12 +30,21 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             base.AfterConstruction();
         }
+        protected override void OnSaving()
+        {
+            base.OnSaving();
+
+        }
         protected override void OnChanged(string propertyName, object oldValue, object newValue)
         {
             base.OnChanged(propertyName, oldValue, newValue);
             if(!Equals(this.ngayNghiViec, null))
             {
-                this.daNghiViec = true;
+                if (DateTime.Compare(DateTime.Today, (DateTime)this.ngayNghiViec) >= 0)
+                {
+                    this.daNghiViec = true;
+                }
+                else this.daNghiViec = false;
             }
             else
             {
@@ -46,12 +59,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fId; }
             set { SetPropertyValue("Id", ref fId, value); }
         }
-        string fHoTen;
+        string fTenNhanVien;
         [XafDisplayName("Họ Và Tên")]
-        public string hoTen
+        public string TenNhanVien
         {
-            get { return fHoTen;}
-            set { SetPropertyValue("hoTen", ref fHoTen, value); }
+            get { return fTenNhanVien;}
+            set { SetPropertyValue("TenNhanVien", ref fTenNhanVien, value); }
         }
         string fMaNhanVien;
         [XafDisplayName("Mã Nhân Viên")]
@@ -82,10 +95,10 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fCMND; }
             set { SetPropertyValue("cmnd", ref fCMND, value); }
         }
-        bool? fDaNghiviec;
+        bool fDaNghiviec = false;
         [XafDisplayName("Đã Nghỉ Việc")]
         [ModelDefault("AllowEdit","false")]
-        public bool? daNghiViec
+        public bool daNghiViec
         {
             get { return fDaNghiviec; }
             set { SetPropertyValue("daNghiViec",ref fDaNghiviec, value); }
@@ -136,6 +149,29 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fMaChamCong; }
             set { SetPropertyValue("MaChamCong", ref fMaChamCong, value); }
         }
+        public enum GioChamCong
+        {
+            [XafDisplayName("Chấm đúng")] dung = 0,
+            [XafDisplayName("Chưa Chấm")] chua = 1,
+            [XafDisplayName("Chấm Thiếu")] thieu = 2
+        }
+        public bool? IsChecked
+        {
+            get
+            {
+                string condition = CriteriaOperator.And(CriteriaOperator.Parse("[nguoiChamCong.maNhanVien] = ?", this.maNhanVien),CriteriaOperator.Parse("IsOutlookIntervalToday([NgayCham])")).ToString();
+                CriteriaOperator criteria = CriteriaOperator.Parse(condition);
+                CheckInOut checkInOut = Session.FindObject<CheckInOut>(criteria);
+                if (Equals(checkInOut, null))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
         public enum TinhTrangNhanVien
         {
             [XafDisplayName("Đang Bàn Giao")] thutuc = 0,
@@ -149,7 +185,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if ((bool)this.daNghiViec)
+                if ((bool)this.daNghiViec == true)
                 {
                     return TinhTrangNhanVien.nghiviec;
                 }
@@ -179,7 +215,21 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 }
             }
         }
-
+        //public enum DiemDanh
+        //{
+        //    [XafDisplayName("Chưa chấm công")] chua = 0,
+        //    [XafDisplayName("Chấm công thiếu")] thieu = 1,
+        //    [XafDisplayName("Chấm công đủ")] du = 2
+        //}
+        //[XafDisplayName("Tình Trạng Chấm Công")]
+        //public DiemDanh diemDanhNgay
+        //{
+        //    get
+        //    {
+        //        CheckInOut cks = Session.GetObjectByKey<CheckInOut>(new BinaryOperator("NgayCham", DateTime.Now));
+        //        if()
+        //    }
+        //}
         [XafDisplayName("Mức Lương Hiện Tại")]
         [VisibleInListView(false)]
         public double? mucLuongHienTai
@@ -195,6 +245,34 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 {
                     return null;
                 }
+            }
+        }
+        [XafDisplayName("Số Ngày Phép Còn Lại")]
+        public double soNgayPhepConLai
+        {
+            get
+            {
+                double soNgay = 0;
+                double soNgayNghi = 0;
+                foreach(HopDongLaoDong hd in hopDongLaoDongs)
+                {
+                    if(hd.tinhTrang == HopDongLaoDong.TinhTrangHopDong.dangcohieuluc)
+                    {
+                        foreach(LanNghiPhep nghiPhep in lanNghiPheps)
+                        {
+                            if(!Equals(nghiPhep.ngayDuyet, null)||!Equals(nghiPhep.ngayBGDDuyet, null))
+                            {
+                                soNgayNghi += nghiPhep.soNgayNghi;
+                            }
+                        }
+                        soNgay = hd.loaiHopDong.soNgayNghiPhep - soNgayNghi;
+                        if(soNgay < 0)
+                        {
+                            soNgay = 0;
+                        }
+                    }
+                }
+                return soNgay;
             }
         }
         string fGhiChu;

@@ -53,5 +53,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         [Association(@"NhanVien-BoPhan")]
         [XafDisplayName("Danh Sách Nhân Viên")]
         public XPCollection<NhanVien> NhanViens { get { return GetCollection<NhanVien>("NhanViens"); } }
+        [Association(@"ThangChamCongs-BoPhan")]
+        [XafDisplayName("Tháng Chấm Công")]
+        public XPCollection<ThangChamCong> thangChamCongs { get { return GetCollection<ThangChamCong>("thangChamCongs"); } }
     }
 }

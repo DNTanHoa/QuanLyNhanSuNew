@@ -1,8 +1,12 @@
 ﻿using DevExpress.Xpo;
 using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Base;
+
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
+    [XafDefaultProperty("tenLoaiTangCa")]
     [Persistent(@"LoaiTangCa")]
+    [XafDisplayName("Loại Tăng Ca")]
     public class LoaiTangCa : XPLiteObject
     {
         public LoaiTangCa(Session session) : base(session) { }
@@ -25,9 +29,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             get { return fTenLoaiTangCa; }
             set { SetPropertyValue("tenLoaiTangCa", ref fTenLoaiTangCa, value); }
         }
-        int fHeSoNhanGio;
+        double fHeSoNhanGio;
         [XafDisplayName("Hệ Số Nhân Giờ")]
-        public int heSoNhanGio
+        public double heSoNhanGio
         {
             get { return fHeSoNhanGio; }
             set { SetPropertyValue("heSoNhanGio", ref fHeSoNhanGio, value); }
