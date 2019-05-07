@@ -28,6 +28,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         }
         NhanVien fNguoiChamCong;
         [XafDisplayName("Tên Nhân Viên")]
+        //[Association("Nhân Viên - Giờ Công")]
         public NhanVien nguoiChamCong
         {
             get { return fNguoiChamCong; }
@@ -241,6 +242,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 return soGioDauCa + soGioCuoiCa;
             }
         }
+        /* Kiểm Tra xem ngày đó nhân viên có đi trễ hay không. Xét điều kiện nếu nhân viên có lần chấm công trễ hơn so với thời gian qui định thì tính là đi trễ ở cả hai ca
+         * 
+         */
         double? fSoGioTangCa;
         [XafDisplayName("Số Giờ Tăng Ca")]
         public double? soGioTangCa
@@ -273,7 +277,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             /*Nếu thời gian vào đầu ca của nhân viên là sớm hơn thời gian qui định ở ca làm việc của nhân viên thì qui đổi giờ chấm về giờ vào trong ca*/
             if((thoiGianVaoCa.Hour <= nhanVien.caLamViec.thoiGianVao.Hour)&&(thoiGianVaoCa.Minute <= nhanVien.caLamViec.thoiGianVao.Minute))
             {
-                thoiGianVaoCaHopLe = nhanVien.caLamViec.thoiGianVao;
+                thoiGianVaoCaHopLe = new DateTime(thoiGianVaoCa.Year, thoiGianVaoCa.Month, thoiGianVaoCa.Day, nhanVien.caLamViec.thoiGianVao.Hour, nhanVien.caLamViec.thoiGianVao.Minute, 0);
             }
             else
             {
@@ -328,11 +332,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             /*Nếu thời gian vào đầu ca của nhân viên là sớm hơn thời gian qui định ở ca làm việc của nhân viên thì qui đổi giờ chấm về giờ vào trong ca*/
             if((thoiGianVaoCa.Hour < nhanVien.caLamViec.thoiGianVao.Hour))
             {
-                thoiGianVaoCaHopLe = nhanVien.caLamViec.thoiGianVao;
+                thoiGianVaoCaHopLe = new DateTime(thoiGianVaoCa.Year, thoiGianVaoCa.Month, thoiGianVaoCa.Day, nhanVien.caLamViec.thoiGianVao.Hour, nhanVien.caLamViec.thoiGianVao.Minute, 0);
+             
             }
             else if ((thoiGianVaoCa.Hour <= nhanVien.caLamViec.thoiGianVao.Hour) && (thoiGianVaoCa.Minute <= nhanVien.caLamViec.thoiGianVao.Minute))
             {
-                thoiGianVaoCaHopLe = nhanVien.caLamViec.thoiGianVao;
+                thoiGianVaoCaHopLe = new DateTime(thoiGianVaoCa.Year, thoiGianVaoCa.Month, thoiGianVaoCa.Day, nhanVien.caLamViec.thoiGianVao.Hour, nhanVien.caLamViec.thoiGianVao.Minute, 0);
             }
             else
             {
@@ -341,11 +346,12 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             Console.WriteLine(thoiGianVaoCaHopLe);
             if(thoiGianNghiGiuaCa.Hour > nhanVien.caLamViec.thoiGianRaGiuaCa.Hour)
             {
-                thoiGianNghiGiuaCaHopLe = nhanVien.caLamViec.thoiGianRaGiuaCa;
+                thoiGianNghiGiuaCaHopLe = new DateTime(thoiGianNghiGiuaCa.Year, thoiGianNghiGiuaCa.Month, thoiGianNghiGiuaCa.Day, nhanVien.caLamViec.thoiGianRaGiuaCa.Hour, nhanVien.caLamViec.thoiGianRaGiuaCa.Minute, 0);
             }
             else if ((thoiGianNghiGiuaCa.Hour >= nhanVien.caLamViec.thoiGianRaGiuaCa.Hour) && (thoiGianNghiGiuaCa.Minute >= nhanVien.caLamViec.thoiGianRaGiuaCa.Minute))
             {
-                thoiGianNghiGiuaCaHopLe = nhanVien.caLamViec.thoiGianRaGiuaCa;
+                thoiGianNghiGiuaCaHopLe = new DateTime(thoiGianNghiGiuaCa.Year, thoiGianNghiGiuaCa.Month, thoiGianNghiGiuaCa.Day, nhanVien.caLamViec.thoiGianRaGiuaCa.Hour, nhanVien.caLamViec.thoiGianRaGiuaCa.Minute, 0);
+
             }
             else
             {
@@ -371,11 +377,13 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             /*Chuẩn Hóa Thời Gian Vào Giữa Ca*/
             if((thoiGianVaoGiuaCa.Hour < nhanVien.caLamViec.thoiGianVaoGiuaCa.Hour))
             {
-                thoiGianVaoGiuaCaHopLe = nhanVien.caLamViec.thoiGianVaoGiuaCa;
+                
+                thoiGianVaoGiuaCaHopLe = new DateTime(thoiGianVaoGiuaCa.Year, thoiGianVaoGiuaCa.Month, thoiGianVaoGiuaCa.Day, nhanVien.caLamViec.thoiGianVaoGiuaCa.Hour, nhanVien.caLamViec.thoiGianVaoGiuaCa.Minute, 0);
             }
             else if ((thoiGianVaoGiuaCa.Hour <= nhanVien.caLamViec.thoiGianVaoGiuaCa.Hour) && (thoiGianVaoGiuaCa.Minute <= nhanVien.caLamViec.thoiGianVaoGiuaCa.Minute))
             {
-                thoiGianVaoGiuaCaHopLe = nhanVien.caLamViec.thoiGianVaoGiuaCa;
+                thoiGianVaoGiuaCaHopLe = new DateTime(thoiGianVaoGiuaCa.Year, thoiGianVaoGiuaCa.Month, thoiGianVaoGiuaCa.Day, nhanVien.caLamViec.thoiGianVaoGiuaCa.Hour, nhanVien.caLamViec.thoiGianVaoGiuaCa.Minute, 0);
+
             }
             else
             {
@@ -384,11 +392,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             /*Chuẩn Hóa Thời Gian Ra Cuối Ca*/
             if((thoiGianTanCa.Hour > nhanVien.caLamViec.thoiGianTanCa.Hour))
             {
-                thoiGianTanCaHopLe = nhanVien.caLamViec.thoiGianTanCa;
+                thoiGianTanCaHopLe = new DateTime(thoiGianTanCa.Year, thoiGianTanCa.Month, thoiGianTanCa.Day, nhanVien.caLamViec.thoiGianTanCa.Hour, nhanVien.caLamViec.thoiGianTanCa.Minute, 0);
             }
             else if ((thoiGianTanCa.Hour >= nhanVien.caLamViec.thoiGianTanCa.Hour) && (thoiGianTanCa.Minute >= nhanVien.caLamViec.thoiGianTanCa.Minute))
             {
-                thoiGianTanCaHopLe = nhanVien.caLamViec.thoiGianTanCa;
+                thoiGianTanCaHopLe = new DateTime(thoiGianTanCa.Year, thoiGianTanCa.Month, thoiGianTanCa.Day, nhanVien.caLamViec.thoiGianTanCa.Hour, nhanVien.caLamViec.thoiGianTanCa.Minute, 0);
             }
             else
             {
