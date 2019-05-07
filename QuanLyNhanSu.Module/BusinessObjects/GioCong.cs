@@ -24,6 +24,11 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             base.AfterConstruction();
         }
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            Session.CommitTransaction();
+        }
         int fId;
         [Key(true)]
         [XafDisplayName("STT")]
@@ -57,7 +62,42 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 return this.checkInOuts.Count;
             }
         }
-        DateTime? fThoiGianVaoCa;
+        DateTime? fThoiGianVaoCaSaved;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime? thoiGianVaoCaSaved
+        {
+            get => fThoiGianVaoCaSaved;
+            set => SetPropertyValue("thoiGianVaoCaSaved", ref fThoiGianVaoCaSaved, value);
+        }
+        DateTime? fThoiGianRaGiuaCaSaved;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime? thoiGianRaGiuaCaSaved
+        {
+            get => fThoiGianRaGiuaCaSaved;
+            set => SetPropertyValue("thoiGianRaGiuaCaSaved", ref fThoiGianRaGiuaCaSaved, value);
+        }
+        DateTime? fThoiGianVaoGiuaCaSaved;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime? thoiGianVaoGiuaCaSaved
+        {
+            get => fThoiGianVaoGiuaCaSaved;
+            set => SetPropertyValue("thoiGianVaoGiuaCaSaved", ref fThoiGianVaoGiuaCaSaved, value);
+        }
+        DateTime? fThoiGianTanCaSaved;
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        [VisibleInLookupListView(false)]
+        public DateTime? thoiGianTanCaSaved
+        {
+            get => fThoiGianTanCaSaved;
+            set => SetPropertyValue("thoiGianTanCaSaved", ref fThoiGianTanCaSaved, value);
+        }
         [XafDisplayName("Thời Gian Vào Ca")]
         [ModelDefault("DisplayFormat", "{0:HH:mm}")]
         [ModelDefault("EditMask", "{HH:mm}")]
@@ -65,22 +105,21 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if (!Equals(fThoiGianVaoCa, null))
+                if(!Equals(this.thoiGianRaGiuaCaSaved,null))
                 {
-                    return fThoiGianVaoCa;
+                    return this.thoiGianVaoCaSaved;
                 }
                 else
                 {
-                    if (!Equals(this.nguoiChamCong, null) && (!Equals(this.checkInOuts,null)))
+                    if (!Equals(this.nguoiChamCong, null))
                     {
                         List<CheckInOut> thoiGianVaoCas = new List<CheckInOut>();
                         DateTime thoiGianVaoHopLe = this.nguoiChamCong.caLamViec.thoiGianVao;
                         foreach (CheckInOut checkInOut in this.checkInOuts)
                         {
-                            CheckInOut check = Session.GetObjectByKey<CheckInOut>(checkInOut.Id);
-                            if ((check.GioCham.Hour >= (thoiGianVaoHopLe.Hour - 1)) && (check.GioCham.Hour <= (thoiGianVaoHopLe.Hour + 1)))
+                            if ((checkInOut.GioCham.Hour >= (thoiGianVaoHopLe.Hour - 1)) && (checkInOut.GioCham.Hour <= (thoiGianVaoHopLe.Hour + 1)))
                             {
-                                thoiGianVaoCas.Add(check);
+                                thoiGianVaoCas.Add(checkInOut);
                             }
                         }
                         if (thoiGianVaoCas != null)
@@ -88,6 +127,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                             CheckInOut checkIn = thoiGianVaoCas.FirstOrDefault();
                             if (checkIn != null)
                             {
+                                this.thoiGianVaoCaSaved = checkIn.GioCham;
                                 return checkIn.GioCham;
                             }
                             else
@@ -105,10 +145,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                         return null;
                     }
                 }
+                
             }
-            set { SetPropertyValue("thoiGianVaoCa", ref fThoiGianVaoCa, value); }
         }
-        DateTime? fThoiGianRaGiuaCa;
         [XafDisplayName("Thời Gian Ra Giữa Ca")]
         [ModelDefault("DisplayFormat", "{0:HH:mm}")]
         [ModelDefault("EditMask", "{HH:mm}")]
@@ -116,9 +155,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if (!Equals(fThoiGianRaGiuaCa, null))
+                if(!Equals(this.thoiGianRaGiuaCaSaved,null))
                 {
-                    return fThoiGianRaGiuaCa;
+                    return this.thoiGianRaGiuaCaSaved;
                 }
                 else
                 {
@@ -140,6 +179,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                             CheckInOut checkIn = thoiGianRaGiuaCas.FirstOrDefault();
                             if (checkIn != null)
                             {
+                                this.thoiGianRaGiuaCaSaved = checkIn.GioCham;
+                                //Session.CommitTransaction();
                                 return checkIn.GioCham;
                             }
                             else
@@ -157,10 +198,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                         return null;
                     }
                 }
+                
             }
-            set { SetPropertyValue("thoiGianRaGiuaCa", ref fThoiGianRaGiuaCa, value); }
         }
-        DateTime? fThoiGianVaoGiuaCa;
         [XafDisplayName("Thời Gian Vào Giữa Ca")]
         [ModelDefault("DisplayFormat", "{0:HH:mm}")]
         [ModelDefault("EditMask", "{HH:mm}")]
@@ -168,9 +208,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if (!Equals(fThoiGianVaoGiuaCa, null))
+                if(!Equals(this.thoiGianVaoGiuaCaSaved,null))
                 {
-                    return fThoiGianVaoGiuaCa;
+                    return this.thoiGianVaoGiuaCaSaved;
                 }
                 else
                 {
@@ -178,20 +218,19 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                     {
                         List<CheckInOut> thoiGianVaoGiuaCas = new List<CheckInOut>();
                         DateTime thoiGianVaoGiuaCaHopLe = this.nguoiChamCong.caLamViec.thoiGianVaoGiuaCa;
-                        /*Lọc Danh Sách Các Lần chấm Công Hợp Lệ Trong Khung Giờ Quy Định*/
                         foreach (CheckInOut checkInOut in this.checkInOuts)
                         {
                             if ((checkInOut.GioCham.Hour >= (thoiGianVaoGiuaCaHopLe.Hour - 2)) && (checkInOut.GioCham.Hour <= (thoiGianVaoGiuaCaHopLe.Hour + 1)))
                             {
-                                thoiGianVaoGiuaCas.Add(checkInOut);
+                               thoiGianVaoGiuaCas.Add(checkInOut);
                             }
                         }
-                        /*Trả Về Lần Quẹt Sớm Nhất*/
                         if (thoiGianVaoGiuaCas != null)
                         {
                             CheckInOut checkIn = thoiGianVaoGiuaCas.LastOrDefault();
                             if (checkIn != null)
                             {
+                                this.thoiGianVaoGiuaCaSaved = checkIn.GioCham;
                                 return checkIn.GioCham;
                             }
                             else
@@ -210,19 +249,17 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                     }
                 }
             }
-            set { SetPropertyValue("thoiGianVaoGiuaCa", ref fThoiGianVaoGiuaCa, value); }
         }
-        DateTime? fThoiGianTanCa;
         [XafDisplayName("Thời Gian Tan Ca")]
         [ModelDefault("DisplayFormat", "{0:HH:mm}")]
         [ModelDefault("EditMask", "{HH:mm}")]
         public DateTime? thoiGianTanCa
         {
             get
-            {
-                if (!Equals(fThoiGianTanCa, null))
+            { 
+                if(!Equals(this.thoiGianTanCaSaved,null))
                 {
-                    return fThoiGianTanCa;
+                    return this.thoiGianTanCaSaved;
                 }
                 else
                 {
@@ -244,6 +281,8 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                             CheckInOut checkIn = thoiGianTanCas.LastOrDefault();
                             if (checkIn != null)
                             {
+                                this.thoiGianTanCaSaved = checkIn.GioCham;
+                                Session.CommitTransaction();
                                 return checkIn.GioCham;
                             }
                             else
@@ -261,9 +300,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                         return null;
                     }
                 }
-                
             }
-            set { SetPropertyValue("thoiGianTanCa", ref fThoiGianTanCa, value); }
         }
         [XafDisplayName("Số Giờ Cơ Bản")]
         public double? soGioCoBan
@@ -280,8 +317,6 @@ namespace QuanLyNhanSu.Module.BusinessObjects
                 {
                     soGioCuoiCa = tinhSoGioCongCuoiCa(this.nguoiChamCong, (DateTime)this.thoiGianVaoGiuaCa, (DateTime)this.thoiGianTanCa);
                 }
-                Console.WriteLine(soGioDauCa);
-                Console.WriteLine(soGioCuoiCa);
                 return soGioDauCa + soGioCuoiCa;
             }
         }
@@ -406,7 +441,6 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             {
                 thoiGianVaoCaHopLe = thoiGianVaoCa;
             }
-            Console.WriteLine(thoiGianVaoCaHopLe);
             if(thoiGianNghiGiuaCa.Hour > nhanVien.caLamViec.thoiGianRaGiuaCa.Hour)
             {
                 thoiGianNghiGiuaCaHopLe = new DateTime(thoiGianNghiGiuaCa.Year, thoiGianNghiGiuaCa.Month, thoiGianNghiGiuaCa.Day, nhanVien.caLamViec.thoiGianRaGiuaCa.Hour, nhanVien.caLamViec.thoiGianRaGiuaCa.Minute, 0);
@@ -419,11 +453,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             {
                 thoiGianNghiGiuaCaHopLe = thoiGianNghiGiuaCa;
             }
-            Console.WriteLine(thoiGianNghiGiuaCaHopLe);
             gioCongDauCa = thoiGianNghiGiuaCaHopLe - thoiGianVaoCaHopLe;
             soGioCongDauCa = gioCongDauCa.TotalMinutes / 60;
             soGioCongDauCa = Math.Round(soGioCongDauCa, 2);
-            Console.WriteLine(soGioCongDauCa);
             return soGioCongDauCa;
          }
         /*
@@ -452,8 +484,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             else
             {
                 thoiGianVaoGiuaCaHopLe = thoiGianVaoGiuaCa;
-            }
-            Console.WriteLine(thoiGianVaoGiuaCaHopLe);
+            };
             /*Chuẩn Hóa Thời Gian Ra Cuối Ca*/
             if((thoiGianTanCa.Hour > nhanVien.caLamViec.thoiGianTanCa.Hour))
             {
@@ -467,11 +498,9 @@ namespace QuanLyNhanSu.Module.BusinessObjects
             {
                 thoiGianTanCaHopLe = thoiGianTanCa;
             }
-            Console.WriteLine(thoiGianTanCaHopLe);
             gioCongCuoiCa = thoiGianTanCaHopLe - thoiGianVaoGiuaCaHopLe;
             soGioCuoiCa = gioCongCuoiCa.TotalMinutes / 60;
             soGioCuoiCa = Math.Round(soGioCuoiCa, 2);
-            Console.WriteLine(soGioCuoiCa);
             return soGioCuoiCa;
          }
         /*
