@@ -42,7 +42,6 @@ namespace QuanLyNhanSu.Module.Controllers
             ObjectSpace.CommitChanges();
             ObjectSpace.Refresh();
             View.Refresh();
-            Console.WriteLine(checkInOuts);
         }
         protected override void OnViewControlsCreated()
         {

@@ -40,8 +40,6 @@ namespace QuanLyNhanSu.Module.Controllers
                 NgayTinhCong ngayTinhCong = ObjectSpace.CreateObject<NgayTinhCong>();
                 ngayTinhCong.ngayChamCong = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
                 IList<NhanVien> nhanViens = ObjectSpace.GetObjects<NhanVien>();// new BinaryOperator("daNghiViec", false));
-                Console.WriteLine("Danh sach nhan vien");
-                Console.WriteLine(nhanViens);
                 if (Equals(nhanViens, null))
                 {
                     MessageBox.Show("Khong co nhan vien");
@@ -55,8 +53,8 @@ namespace QuanLyNhanSu.Module.Controllers
                         gioCong.ngay = ngayTinhCong;
                     }
                     ObjectSpace.CommitChanges();
-                    //ObjectSpace.Refresh();
-                    //View.Refresh();
+                    ObjectSpace.Refresh();
+                    View.Refresh();
                 }
             }
             else
@@ -80,8 +78,8 @@ namespace QuanLyNhanSu.Module.Controllers
                         }
                     }
                     ObjectSpace.CommitChanges();
-                    //ObjectSpace.Refresh();
-                    //View.Refresh();
+                    ObjectSpace.Refresh();
+                    View.Refresh();
                 }
             }
             
