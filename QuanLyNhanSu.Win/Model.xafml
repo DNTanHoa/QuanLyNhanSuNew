@@ -34,7 +34,7 @@
       <Action Id="Unlink" Caption="Loại Bỏ Liên Kết" />
     </Actions>
   </ActionDesign>
-  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List" StartupNavigationItem="MyDetails">
+  <NavigationItems NavigationStyle="Accordion" ShowImages="True" DefaultChildItemsDisplayStyle="List" StartupNavigationItem="NguoiDung_ListView">
     <Items>
       <Item Id="Default" Caption="Thông Tin Chung" ImageName="Actions_Home" Index="0">
         <Items>
@@ -123,8 +123,8 @@
               <LayoutGroup Id="CheckInOut_col2" RelativeSize="50.113378684807259">
                 <LayoutItem Id="GioCham" RelativeSize="11.428571428571429" />
                 <LayoutItem Id="idMCC" RelativeSize="8.5714285714285712" />
-                <LayoutItem Id="TenMay" RelativeSize="8.5714285714285712" />
                 <LayoutItem Id="gioCong" ViewItem="gioCong" Index="3" RelativeSize="71.428571428571431" IsNewNode="True" />
+                <LayoutItem Id="TenMay" RelativeSize="8.5714285714285712" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>

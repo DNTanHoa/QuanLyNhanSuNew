@@ -91,19 +91,28 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         public enum LoaiGio
         {
             [XafDisplayName("Giờ Vào Đầu Ca")] vaodauca = 0,
-            [XafDisplayName("Giờ Ra Giữa Ca")] ragiuaca = 1,
-            [XafDisplayName("Giờ Vào Giữa Ca")] vaogiuaca = 2,
-            [XafDisplayName("Giờ Tan Ca")] tanca = 3
+            [XafDisplayName("Giờ Ra Vào Giữa Ca")] ravaogiuaca = 1,
+            //[XafDisplayName("Giờ Vào Giữa Ca")] vaogiuaca = 2,
+            [XafDisplayName("Giờ Tan Ca")] tanca = 2,
+            [XafDisplayName("Không xác định")] khongxacdinh = 3
+
         }
         [XafDisplayName("Loại Chấm Công")]
         [ModelDefault("AllowEdit","false")]
-        //public LoaiGio loaiChamCong
-        //{
-        //    get
-        //    {
-        //        if(this.GioCham.Hour)
-        //    }
-        //}
+        public LoaiGio? loaiChamCong
+        {
+            get
+            {
+                if (!Equals(this.nguoiChamCong, null))
+                {
+                    return kiemTraChamCong(this.nguoiChamCong, this.GioCham);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         int? fIdMCC;
         [XafDisplayName("Số thứ tự máy")]
         public int? idMCC
@@ -136,6 +145,36 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get { return fgioCong; }
             set { SetPropertyValue("gioCong", ref fgioCong, value); }
+        }
+
+        /*  Đây là chương trình kiểm tra loại chấm công
+         *  input: Nhân viên, thời gian chấm công
+         *  Author: Đình Tri
+         *  Ngày: 08/05/2019
+         */
+
+        private LoaiGio kiemTraChamCong(NhanVien nhanVien, DateTime thoiGianCham)
+        {
+            DateTime thoiGianVaoCa = nhanVien.caLamViec.thoiGianVao;
+            //DateTime thoiGianRaGiuaCa = nhanVien.caLamViec.thoiGianRaGiuaCa;
+            //DateTime thoiGianVaoGiuaCa = nhanVien.caLamViec.thoiGianVaoGiuaCa;
+            DateTime thoiGianTanCa = nhanVien.caLamViec.thoiGianTanCa;
+            if((thoiGianCham.Hour >= (thoiGianVaoCa.Hour - 1)) && (thoiGianCham.Hour <= (thoiGianVaoCa.Hour + 1)))
+            {
+                return LoaiGio.vaodauca;
+            }
+            else if ((thoiGianCham.Hour >=(thoiGianTanCa.Hour - 1)) && (thoiGianCham.Hour <= (thoiGianTanCa.Hour + 1)))
+            {
+                return LoaiGio.tanca;
+            }
+            else if((thoiGianCham.Hour >= (thoiGianVaoCa.Hour + 1)) && (thoiGianCham.Hour <= (thoiGianTanCa.Hour - 1)))
+            {
+                return LoaiGio.ravaogiuaca;
+            }
+            else
+            {
+                return LoaiGio.khongxacdinh;
+            }
         }
     }
 }
