@@ -105,7 +105,7 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         {
             get
             {
-                if(!Equals(this.thoiGianRaGiuaCaSaved,null))
+                if(!Equals(this.thoiGianVaoCaSaved,null))
                 {
                     return this.thoiGianVaoCaSaved;
                 }

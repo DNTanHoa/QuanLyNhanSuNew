@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu.Module.BusinessObjects
 {
-    [DefaultClassOptions]
     [XafDisplayName("Ngày Tính Công")]
     [Persistent(@"NgayTinhCong")]
     [XafDefaultProperty("ngayChamCong")]
@@ -36,7 +35,6 @@ namespace QuanLyNhanSu.Module.BusinessObjects
         int fId;
         [Key(true)]
         [XafDisplayName("STT")]
-        [Persistent("Id")]
         public int Id
         {
             get { return fId; }
